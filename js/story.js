@@ -904,7 +904,7 @@ const STORY = (() => {
     crypt_entrance: {
       text: `<p>The Ancient Crypt lies beneath the ruins of Hollowreach, a town swallowed by the earth during the Crown's shattering. The entrance is a gaping maw of broken stone, descending into absolute darkness.</p>
 <p>The air rising from below is cold and carries the faint scent of decay. Torches line the walls, long extinguished. Your breath mists in the chill.</p>
-${(() => '<p>Near the entrance, you spot signs of a camp — the mercenaries from the tavern. Their gear is here, but they\'ve already gone in.</p>')()}`,
+<p>Near the entrance, you spot signs of a camp — the mercenaries from the tavern. Their gear is here, but they've already gone in.</p>`,
       background: 'linear-gradient(180deg, #1a1a2a 0%, #0a0a15 100%)',
       choices: [
         { text: 'Light a torch and descend carefully', next: 'crypt_descent' },
@@ -1079,7 +1079,7 @@ ${(() => '<p>Near the entrance, you spot signs of a camp — the mercenaries fro
     crypt_wraith_defeated: {
       text: `<p>The wraith dissolves with a final agonized wail, its dark energy dispersing like smoke. The burial chamber falls silent.</p>
 <p>The Crown shard descends gently from above the sarcophagus. You take it reverently — it's ice-cold, but warms quickly in your grasp.</p>
-<p><span class="story-action">Crown Shard (Crypt) acquired! (${3}/5)</span></p>`,
+<p><span class="story-action">Crown Shard (Crypt) acquired!</span></p>`,
       background: 'linear-gradient(180deg, #1a1a2a 0%, #0a0a15 100%)',
       choices: [
         { text: 'Leave the crypt and return to Thornvale', next: 'thornvale_prepare' }
@@ -1097,7 +1097,7 @@ ${(() => '<p>Near the entrance, you spot signs of a camp — the mercenaries fro
 <p>The wraith's tortured form softens. For a moment, you see the person it was — a young mage, loyal to the king.</p>
 <p><span class="story-dialogue">"I've been trapped... so long. Please... take the shard. Reforge the Crown. Let me rest."</span></p>
 <p>The spirit fades peacefully as you take the shard from above the sarcophagus. The chamber warms, and you swear you hear a whispered <span class="story-dialogue">"thank you."</span></p>
-<p><span class="story-action">Crown Shard (Crypt) acquired! (${3}/5)</span></p>
+<p><span class="story-action">Crown Shard (Crypt) acquired!</span></p>
 <p><span class="story-action">Peaceful resolution: +30 XP, full mana restored</span></p>`,
       background: 'linear-gradient(180deg, #1a1a2a 0%, #1a1a3a 100%)',
       choices: [
@@ -1116,7 +1116,7 @@ ${(() => '<p>Near the entrance, you spot signs of a camp — the mercenaries fro
     crypt_grab_run: {
       text: `<p>You dart from behind the pillar, snatching the shard from the air in one fluid motion. The wraith shrieks in fury — but you're already running, boots pounding on ancient stone.</p>
 <p>Spectral claws rake at your back — <span class="story-action">-15 health</span> — but you burst through the doorway and don't stop until you see daylight.</p>
-<p><span class="story-action">Crown Shard (Crypt) acquired! (${3}/5)</span></p>`,
+<p><span class="story-action">Crown Shard (Crypt) acquired!</span></p>`,
       background: 'linear-gradient(180deg, #1a1a2a 0%, #0a0a15 100%)',
       choices: [
         { text: 'Return to Thornvale, nursing your wounds', next: 'thornvale_prepare' }
