@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoryForge — The Shattered Crown</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-container">
+    <header id="game-header">
+      <h1 id="game-title">The Shattered Crown</h1>
+      <div id="header-controls">
+        <button id="inventory-btn" class="icon-btn" title="Inventory" aria-label="Open inventory">🎒</button>
+        <button id="stats-btn" class="icon-btn" title="Character Stats" aria-label="Open character stats">⚔️</button>
+        <button id="map-btn" class="icon-btn" title="Map" aria-label="Open map">🗺️</button>
+        <button id="settings-btn" class="icon-btn" title="Settings" aria-label="Open settings">⚙️</button>
+      </div>
+    </header>
+
+    <main id="game-main">
+      <div id="scene-image-container">
+        <div id="scene-image"></div>
+      </div>
+      <div id="story-panel">
+        <div id="story-text"></div>
+      </div>
+      <div id="choices-panel"></div>
+    </main>
+
+    <footer id="game-footer">
+      <div id="status-bar">
+        <div class="stat-display">
+          <span class="stat-icon">❤️</span>
+          <div class="stat-bar-container">
+            <div id="health-bar" class="stat-bar" style="width:100%"></div>
+          </div>
+          <span id="health-text" class="stat-value">100/100</span>
+        </div>
+        <div class="stat-display">
+          <span class="stat-icon">✨</span>
+          <div class="stat-bar-container">
+            <div id="mana-bar" class="stat-bar mana" style="width:100%"></div>
+          </div>
+          <span id="mana-text" class="stat-value">50/50</span>
+        </div>
+        <div id="gold-display">
+          <span class="stat-icon">💰</span>
+          <span id="gold-text">0</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Overlays -->
+    <div id="overlay" class="overlay hidden">
+      <div id="overlay-content" class="overlay-panel">
+        <button id="overlay-close" class="close-btn" aria-label="Close">&times;</button>
+        <div id="overlay-body"></div>
+      </div>
+    </div>
+
+    <div id="combat-overlay" class="overlay hidden">
+      <div class="overlay-panel combat-panel">
+        <h2 id="combat-title">⚔️ Combat!</h2>
+        <div id="combat-enemy-info"></div>
+        <div id="combat-log"></div>
+        <div id="combat-actions"></div>
+      </div>
+    </div>
+
+    <div id="notification" class="notification hidden"></div>
+  </div>
+
+  <script src="js/story.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/combat.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
