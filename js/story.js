@@ -983,12 +983,12 @@ const STORY = (() => {
         {
           text: 'Launch an early disruption raid',
           next: 'batch001_stormfang_early',
-          condition: (state) => (state.flags.shard_count || 1) < 3
+          condition: (state) => (state.flags.shard_count ?? 0) < 3
         },
         {
           text: 'Lead a late-stage purge against elite captains',
           next: 'batch001_stormfang_late',
-          condition: (state) => (state.flags.shard_count || 1) >= 3
+          condition: (state) => (state.flags.shard_count ?? 0) >= 3
         },
         { text: 'Pull back and reassess', next: 'batch001_hub' }
       ],
@@ -1115,13 +1115,13 @@ const STORY = (() => {
         {
           text: 'Solve the next chamber',
           next: 'batch001_moonlit_chamber_solved',
-          condition: (state) => (state.flags.batch001_moonlit_threads || 0) < 3,
+          condition: (state) => (state.flags.batch001_moonlit_threads ?? 0) < 3,
           requirementText: 'Three total chambers available'
         },
         {
           text: 'Review recovered narrative threads',
           next: 'batch001_moonlit_thread_review',
-          condition: (state) => (state.flags.batch001_moonlit_threads || 0) > 0,
+          condition: (state) => (state.flags.batch001_moonlit_threads ?? 0) > 0,
           requirementText: 'Requires at least one solved chamber'
         },
         { text: 'Return to the planning table', next: 'batch001_hub' }
@@ -1140,7 +1140,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
-        const threads = Math.min(3, (state.flags.batch001_moonlit_threads || 0) + 1);
+        const threads = Math.min(3, (state.flags.batch001_moonlit_threads ?? 0) + 1);
         state.flags.batch001_moonlit_threads = threads;
         if (threads >= 3) {
           state.flags.batch001_moonlit_arc_complete = true;
