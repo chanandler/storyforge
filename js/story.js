@@ -271,6 +271,16 @@ const STORY = (() => {
     ancient_crypt: { name: 'The Ancient Crypt', icon: '⚰️', discovered: false },
     stormfang_peak: { name: 'Stormfang Peak', icon: '🏔️', discovered: false },
     fallen_city: { name: 'Fallen City of Auralis', icon: '🏰', discovered: false },
+    thornvale_hinterlands: { name: 'Thornvale Hinterlands', icon: '🌾', discovered: false },
+    whispering_wilds: { name: 'Whispering Wilds', icon: '🍃', discovered: false },
+    cryptward_depths: { name: 'Cryptward Depths', icon: '🕯️', discovered: false },
+    stormfang_range: { name: 'Stormfang Range', icon: '⛰️', discovered: false },
+    auralis_ruins: { name: 'Auralis Ruins', icon: '🏛️', discovered: false },
+    sunken_marshes: { name: 'Sunken Marshes', icon: '🐊', discovered: false },
+    ashen_steppe: { name: 'Ashen Steppe', icon: '🔥', discovered: false },
+    moonlit_coast: { name: 'Moonlit Coast', icon: '🌙', discovered: false },
+    glass_dunes: { name: 'Glass Dunes', icon: '🏜️', discovered: false },
+    ironroot_forest: { name: 'Ironroot Forest', icon: '🌳', discovered: false },
     dark_tower: { name: 'Malachar\'s Tower', icon: '🗼', discovered: false }
   };
 
@@ -686,12 +696,561 @@ const STORY = (() => {
           condition: (state) => LOCATIONS.fallen_city.discovered && state.flags.shard_count >= 3,
           requirementText: 'Requires 3+ shards and knowledge of location'
         },
+        { text: '🧭 Investigate frontier opportunities (Batch 001)', next: 'batch001_hub' },
         { text: '🔨 Visit the blacksmith before leaving', next: 'blacksmith' },
         { text: '🍺 Stop by the tavern', next: 'tavern' }
       ],
       onEnter: (state) => {
         state.health = state.maxHealth;
         state.mana = state.maxMana;
+      }
+    },
+
+    // ===== BATCH 001 IDEAS =====
+    batch001_hub: {
+      text: `<p>You spread your maps over a weather-worn planning table in Thornvale's outer camp. New reports are flooding in from frontier scouts — each one a chance to slow Malachar's spread before it reaches full strength.</p>
+<p>These operations are dangerous, but their outcomes can permanently change travel routes, allies, and what resources remain available to the resistance.</p>`,
+      background: 'linear-gradient(180deg, #1c2f1c 0%, #0f1a0f 100%)',
+      choices: [
+        { text: '1️⃣ Memory-Echo Landmark (Thornvale Hinterlands)', next: 'batch001_memory_echo' },
+        { text: '2️⃣ Settlement Conflict (Whispering Wilds)', next: 'batch001_wilds_conflict' },
+        { text: '3️⃣ Hidden Sanctuary Attack (Cryptward Depths)', next: 'batch001_cryptward_sanctuary' },
+        { text: '4️⃣ Elite Territory Sweep (Stormfang Range)', next: 'batch001_stormfang_territory' },
+        {
+          text: '5️⃣ Weather-Bound Ruin Event (Auralis Ruins)',
+          next: 'batch001_auralis_weather',
+          condition: (state) => state.flags.shard_count >= 3 && (state.flags.batch001_stormfang_cleansed || state.flags.city_complete),
+          requirementText: 'Requires 3+ shards and a stable stormfront'
+        },
+        { text: '6️⃣ Lore Archive Recovery (Sunken Marshes)', next: 'batch001_sunken_archive' },
+        {
+          text: '7️⃣ Landmark Restoration (Ashen Steppe)',
+          next: 'batch001_ashen_restoration',
+          condition: (state) => state.flags.batch001_archive_texts,
+          requirementText: 'Requires recovered archive texts'
+        },
+        {
+          text: '8️⃣ Ruins Puzzle Wing (Moonlit Coast)',
+          next: 'batch001_moonlit_puzzle',
+          condition: (state) => state.flags.batch001_archive_texts,
+          requirementText: 'Requires archive map markers'
+        },
+        {
+          text: '9️⃣ Companion Stop (Glass Dunes)',
+          next: 'batch001_glass_stop',
+          condition: (state) => state.flags.batch001_ashen_restored || state.flags.batch001_archive_texts,
+          requirementText: 'Requires restored routes'
+        },
+        {
+          text: '🔟 Festival Intrigue (Ironroot Forest)',
+          next: 'batch001_ironroot_festival',
+          condition: (state) => state.flags.batch001_ashen_restored || state.flags.batch001_archive_texts,
+          requirementText: 'Requires restored routes'
+        },
+        {
+          text: '🏕️ Rest at the Hidden Sanctuary',
+          next: 'batch001_sanctuary_rest',
+          condition: (state) => state.flags.batch001_sanctuary_unlocked,
+          requirementText: 'Requires sanctuary to be protected'
+        },
+        {
+          text: '🛒 Visit the frontier vendor camp',
+          next: 'batch001_vendor_camp',
+          condition: (state) => state.flags.batch001_wilds_settlers || state.flags.batch001_wilds_wildkin || state.flags.batch001_wilds_mediated,
+          requirementText: 'Requires resolving the Whispering Wilds conflict'
+        },
+        { text: '← Return to core quest planning', next: 'thornvale_prepare' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch001_memory_echo: {
+      text: `<p>In the Thornvale Hinterlands, half-buried monoliths hum with old Crown resonance. Resistance scouts call it a <span class="story-emphasis">memory-echo landmark</span>.</p>
+<p>The echo basin is dormant until a relic is set within its ring. If awakened, it projects scenes from the years before Malachar's betrayal — and hints at how shard recoveries are linked.</p>`,
+      background: 'linear-gradient(180deg, #2a2f1a 0%, #11150a 100%)',
+      choices: [
+        {
+          text: 'Place a relic in the basin and trigger the memory-echo',
+          next: 'batch001_memory_echo_triggered',
+          condition: (state) => state.inventory.includes('old_map') || state.inventory.includes('shard_messenger') || state.inventory.includes('elara_amulet') || state.inventory.includes('shield_ring'),
+          requirementText: 'Requires a relic from prior adventures'
+        },
+        { text: 'Record the landmark and return to camp', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch001_memory_echo_triggered: {
+      text: `<p>The relic ignites with dawn-light and the monoliths answer. A vision unfolds: royal couriers moving shard fragments along hidden roads, each route tied to fallback sanctuaries and resistance cells.</p>
+<p>You map the sequence. Future shard hunts now have stronger context — and fewer blind jumps.</p>`,
+      background: 'linear-gradient(180deg, #3a3f2a 0%, #1a1f0a 100%)',
+      choices: [
+        { text: 'Return to the frontier planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        if (!state.flags.batch001_memory_echo_complete) {
+          state.flags.batch001_memory_echo_complete = true;
+          state.xp += 25;
+        }
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch001_wilds_conflict: {
+      text: `<p>Whispering Wilds is split between settlers rebuilding outposts and wardens protecting ancient groves. Their standoff has already disrupted caravans and supply depots.</p>
+<p>Your ruling here will permanently decide which faction controls nearby route vendors.</p>`,
+      background: 'linear-gradient(180deg, #1a3a2a 0%, #0b1a12 100%)',
+      choices: [
+        { text: 'Back the settlers and fortify trade roads', next: 'batch001_wilds_settlers' },
+        { text: 'Back the grove wardens and restrict logging routes', next: 'batch001_wilds_wildkin' },
+        {
+          text: 'Use Lyra\'s contacts to broker a fragile truce',
+          next: 'batch001_wilds_mediated',
+          condition: (state) => state.flags.lyra_companion,
+          requirementText: 'Requires Lyra as companion'
+        },
+        { text: 'Withdraw and return to camp', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch001_wilds_settlers: {
+      text: `<p>You authorize palisades, escort details, and toll rights for settler caravans. Trade stabilizes quickly, but some wardens denounce your decision.</p>
+<p><span class="story-action">Settler vendors now dominate frontier supply lines.</span></p>`,
+      background: 'linear-gradient(180deg, #2a4028 0%, #111f10 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch001_wilds_settlers = true;
+        state.flags.batch001_wilds_wildkin = false;
+        state.flags.batch001_wilds_mediated = false;
+        state.gold += 15;
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch001_wilds_wildkin: {
+      text: `<p>You side with the wardens, preserving sacred groves and closing exploitative road cuts. Caravans shrink, but healers and herbalists emerge from hiding.</p>
+<p><span class="story-action">Wildkin vendors now shape frontier inventories.</span></p>`,
+      background: 'linear-gradient(180deg, #1f4a33 0%, #0c2318 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch001_wilds_settlers = false;
+        state.flags.batch001_wilds_wildkin = true;
+        state.flags.batch001_wilds_mediated = false;
+        state.inventory.push('mana_potion');
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch001_wilds_mediated: {
+      text: `<p>With Lyra mediating between militia captains and grove wardens, you establish rotating stewardship: escorted trade windows and protected sacred zones.</p>
+<p>The compromise keeps both factions active and preserves companion story continuity with the Loyalists.</p>`,
+      background: 'linear-gradient(180deg, #24503a 0%, #10281e 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch001_wilds_settlers = false;
+        state.flags.batch001_wilds_wildkin = false;
+        state.flags.batch001_wilds_mediated = true;
+        state.flags.batch001_lyra_continuity = true;
+        state.inventory.push('health_potion');
+        state.inventory.push('mana_potion');
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch001_vendor_camp: {
+      text: `<p>The frontier vendor camp has changed based on your Whispering Wilds ruling.</p>
+<p>Settler contracts offer steel and rations. Wildkin channels provide rare herbs. A mediated truce offers a balanced mix, but in lower volume.</p>`,
+      background: 'linear-gradient(180deg, #2a2a1a 0%, #121208 100%)',
+      choices: [
+        {
+          text: 'Buy hardened field kit (20 gold, +1 defense)',
+          next: 'batch001_hub',
+          condition: (state) => state.flags.batch001_wilds_settlers && state.gold >= 20,
+          onSelect: (state) => {
+            state.gold -= 20;
+            state.stats.defense += 1;
+          }
+        },
+        {
+          text: 'Buy spirit tinctures (15 gold, +20 mana)',
+          next: 'batch001_hub',
+          condition: (state) => state.flags.batch001_wilds_wildkin && state.gold >= 15,
+          onSelect: (state) => {
+            state.gold -= 15;
+            state.mana = Math.min(state.maxMana, state.mana + 20);
+          }
+        },
+        {
+          text: 'Buy balanced campaign pack (18 gold, +15 health/+15 mana)',
+          next: 'batch001_hub',
+          condition: (state) => state.flags.batch001_wilds_mediated && state.gold >= 18,
+          onSelect: (state) => {
+            state.gold -= 18;
+            state.health = Math.min(state.maxHealth, state.health + 15);
+            state.mana = Math.min(state.maxMana, state.mana + 15);
+          }
+        },
+        { text: 'Leave without trading', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch001_cryptward_sanctuary: {
+      text: `<p>In Cryptward Depths, resistance scouts have found a hidden sanctuary carved behind collapsed catacombs. Midway through your inspection, revenants breach the outer wards.</p>
+<p>If you hold the line now, this site can become a recurring safe hub for future operations.</p>`,
+      background: 'linear-gradient(180deg, #2b223a 0%, #120c1a 100%)',
+      choices: [
+        { text: 'Defend the sanctuary entrance', next: 'batch001_cryptward_defend' },
+        { text: 'Order evacuation and abandon the site', next: 'batch001_cryptward_abandon' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        LOCATIONS.cryptward_depths.discovered = true;
+      }
+    },
+
+    batch001_cryptward_defend: {
+      text: `<p>You and the scouts hold choke points until dawn. The wards stabilize, and the sanctuary survives. Runners begin stockpiling medicine and maps inside.</p>
+<p><span class="story-action">Hidden sanctuary unlocked as a recurring safe hub.</span></p>`,
+      background: 'linear-gradient(180deg, #3a2f4a 0%, #191224 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        state.flags.batch001_sanctuary_unlocked = true;
+        state.xp += 20;
+        LOCATIONS.cryptward_depths.discovered = true;
+      }
+    },
+
+    batch001_cryptward_abandon: {
+      text: `<p>You pull everyone out before the wards collapse. The scouts survive, but the sanctuary is lost to the depths — and future campaigns lose a valuable foothold.</p>`,
+      background: 'linear-gradient(180deg, #2a1f36 0%, #130d1a 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        state.flags.batch001_sanctuary_unlocked = false;
+        LOCATIONS.cryptward_depths.discovered = true;
+      }
+    },
+
+    batch001_sanctuary_rest: {
+      text: `<p>Within the hidden sanctuary, warded braziers mute the corruption beyond the walls. You rest, rearm, and review reports from multiple fronts.</p>
+<p><span class="story-action">Health and mana fully restored.</span></p>`,
+      background: 'linear-gradient(180deg, #2f2740 0%, #140f20 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        state.health = state.maxHealth;
+        state.mana = state.maxMana;
+        LOCATIONS.cryptward_depths.discovered = true;
+      }
+    },
+
+    batch001_stormfang_territory: {
+      text: `<p>An elite patrol zone has formed in Stormfang Range, marked by obsidian totems channeling Malachar's influence. The threat evolves as your chapter progress advances.</p>
+<p>Early strikes disrupt scouts. Late strikes force direct engagements with corrupted captains.</p>`,
+      background: 'linear-gradient(180deg, #313131 0%, #121212 100%)',
+      choices: [
+        {
+          text: 'Launch an early disruption raid',
+          next: 'batch001_stormfang_early',
+          condition: (state) => (state.flags.shard_count || 1) < 3
+        },
+        {
+          text: 'Lead a late-stage purge against elite captains',
+          next: 'batch001_stormfang_late',
+          condition: (state) => (state.flags.shard_count || 1) >= 3
+        },
+        { text: 'Pull back and reassess', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch001_stormfang_early: {
+      text: `<p>Your strike team topples totems and scatters outriders before the network matures. Malachar's hold weakens across the pass.</p>`,
+      background: 'linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        state.flags.batch001_stormfang_cleansed = true;
+        state.flags.batch001_stormfang_spreading = false;
+        state.xp += 15;
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch001_stormfang_late: {
+      text: `<p>The territory has hardened. Corrupted elites press from multiple ridgelines, but you break their command banner and collapse the influence web.</p>
+<p><span class="story-action">Heavy cost paid, but regional corruption recedes.</span></p>`,
+      background: 'linear-gradient(180deg, #444 0%, #1b1b1b 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        state.flags.batch001_stormfang_cleansed = true;
+        state.flags.batch001_stormfang_spreading = false;
+        state.health = Math.max(1, state.health - 18);
+        state.xp += 30;
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch001_auralis_weather: {
+      text: `<p>At Auralis Ruins, a razorstorm opens only during this rare world-state window. Lightning reveals hidden sigils for moments at a time before ash clouds swallow them again.</p>
+<p>You navigate the storm-limited corridor and secure notes pointing toward deeper late-game convergence routes into Malachar's network.</p>`,
+      background: 'linear-gradient(180deg, #2f2a3a 0%, #140f1e 100%)',
+      choices: [
+        { text: 'Extract before the weather window closes', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'auralis_ruins';
+        if (!state.flags.batch001_auralis_weather_done) {
+          state.flags.batch001_auralis_weather_done = true;
+          state.flags.batch001_late_game_route = true;
+          state.gold += 20;
+        }
+        LOCATIONS.auralis_ruins.discovered = true;
+      }
+    },
+
+    batch001_sunken_archive: {
+      text: `<p>Deep in the Sunken Marshes, you uncover a sealed archive room. Floodwater has ruined most shelves, but several codices survive in waxed cases.</p>
+<p>Recovered texts identify route markers for distant location clusters and hidden approaches.</p>`,
+      background: 'linear-gradient(180deg, #1a342f 0%, #0b1714 100%)',
+      choices: [
+        { text: 'Recover and catalog the surviving texts', next: 'batch001_sunken_archive_recovered' },
+        { text: 'Mark the room and leave', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'sunken_marshes';
+        LOCATIONS.sunken_marshes.discovered = true;
+      }
+    },
+
+    batch001_sunken_archive_recovered: {
+      text: `<p>You secure the codices and decode regional overlays. New markers appear for the Ashen Steppe and Moonlit Coast, with references to further links beyond them.</p>`,
+      background: 'linear-gradient(180deg, #24423d 0%, #10211d 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'sunken_marshes';
+        state.flags.batch001_archive_texts = true;
+        LOCATIONS.sunken_marshes.discovered = true;
+        LOCATIONS.ashen_steppe.discovered = true;
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch001_ashen_restoration: {
+      text: `<p>At Ashen Steppe, a shattered waystone network blocks safe movement between frontier cells. With archive instructions in hand, you can attempt a full restoration.</p>`,
+      background: 'linear-gradient(180deg, #4a2f20 0%, #1f120a 100%)',
+      choices: [
+        {
+          text: 'Restore all waystones and reopen travel links',
+          next: 'batch001_ashen_restored'
+        },
+        { text: 'Abort and conserve resources', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        LOCATIONS.ashen_steppe.discovered = true;
+      }
+    },
+
+    batch001_ashen_restored: {
+      text: `<p>One by one, the waystones reignite. Travel lanes stabilize and long-blocked story scenes become reachable across neighboring regions.</p>`,
+      background: 'linear-gradient(180deg, #5a3a2a 0%, #29170c 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        state.flags.batch001_ashen_restored = true;
+        LOCATIONS.glass_dunes.discovered = true;
+        LOCATIONS.ironroot_forest.discovered = true;
+        LOCATIONS.ashen_steppe.discovered = true;
+      }
+    },
+
+    batch001_moonlit_puzzle: {
+      text: `<p>The Moonlit Coast ruins contain a puzzle wing with three sealed chambers. Each solved chamber reveals one thread in a long-form narrative arc about the Crown's custodians.</p>`,
+      background: 'linear-gradient(180deg, #20314a 0%, #0d1520 100%)',
+      choices: [
+        {
+          text: 'Solve the next chamber',
+          next: 'batch001_moonlit_chamber_solved',
+          condition: (state) => (state.flags.batch001_moonlit_threads || 0) < 3,
+          requirementText: 'Three total chambers available'
+        },
+        {
+          text: 'Review recovered narrative threads',
+          next: 'batch001_moonlit_thread_review',
+          condition: (state) => (state.flags.batch001_moonlit_threads || 0) > 0,
+          requirementText: 'Requires at least one solved chamber'
+        },
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch001_moonlit_chamber_solved: {
+      text: `<p>You align mirrors, sigils, and tide-lock mechanisms. Another chamber opens, adding a new thread to the custodians' saga.</p>`,
+      background: 'linear-gradient(180deg, #2a3f5f 0%, #111d2d 100%)',
+      choices: [
+        { text: 'Continue within the puzzle wing', next: 'batch001_moonlit_puzzle' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        const threads = Math.min(3, (state.flags.batch001_moonlit_threads || 0) + 1);
+        state.flags.batch001_moonlit_threads = threads;
+        if (threads >= 3) {
+          state.flags.batch001_moonlit_arc_complete = true;
+          LOCATIONS.glass_dunes.discovered = true;
+        }
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch001_moonlit_thread_review: {
+      text: `<p>The recovered threads connect royal custodians, resistance hideaways, and shard fallback paths. As the arc fills in, your campaign options broaden.</p>`,
+      background: 'linear-gradient(180deg, #243851 0%, #0f1b2a 100%)',
+      choices: [
+        { text: 'Return to the puzzle wing', next: 'batch001_moonlit_puzzle' },
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch001_glass_stop: {
+      text: `<p>At Glass Dunes, old watch-posts cut across mirror-bright sands. This stop can deepen companion arcs and unlock alternate outcomes in later branches.</p>`,
+      background: 'linear-gradient(180deg, #5c4a2a 0%, #241a0d 100%)',
+      choices: [
+        {
+          text: 'Share command decisions with Lyra at the dune watch',
+          next: 'batch001_glass_lyra',
+          condition: (state) => state.flags.lyra_companion,
+          requirementText: 'Requires Lyra as active companion'
+        },
+        { text: 'Scout the watch-posts alone', next: 'batch001_glass_solo' },
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch001_glass_lyra: {
+      text: `<p>Lyra opens up about Loyalist failures and what she risked to keep Queen Isolde hidden. Together, you define fallback priorities for civilians over relics if a crisis forces the choice.</p>
+<p><span class="story-action">Alternate story outcome unlocked: Loyalist Evacuation Route.</span></p>`,
+      background: 'linear-gradient(180deg, #6a5531 0%, #2b2010 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        state.flags.batch001_glass_lyra_arc = true;
+        state.flags.batch001_alternate_outcome = true;
+        state.xp += 15;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch001_glass_solo: {
+      text: `<p>You log wind paths, cache points, and hazard timings. The solo route is efficient but lacks companion-driven branching insight.</p>`,
+      background: 'linear-gradient(180deg, #6a5531 0%, #2b2010 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        state.flags.batch001_glass_solo = true;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch001_ironroot_festival: {
+      text: `<p>Ironroot Forest's local festival is all lanterns, masks, and music — and perfect cover for political handlers trading sealed directives.</p>
+<p>A hidden mission entry point can be exposed if you follow the right signal chain.</p>`,
+      background: 'linear-gradient(180deg, #2f4a2f 0%, #101d10 100%)',
+      choices: [
+        { text: 'Track the masked couriers and expose the intrigue network', next: 'batch001_ironroot_exposed' },
+        { text: 'Blend in and gather passive rumors', next: 'batch001_ironroot_rumors' },
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch001_ironroot_exposed: {
+      text: `<p>You decode the lantern sequence and intercept a courier exchange. Beneath a stage trapdoor, you find a mission cache tied to anti-Loyalist conspirators.</p>
+<p><span class="story-action">Hidden mission entry unlocked for future chapter content.</span></p>`,
+      background: 'linear-gradient(180deg, #3a5a3a 0%, #162816 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch001_ironroot_hidden_mission = true;
+        state.gold += 12;
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch001_ironroot_rumors: {
+      text: `<p>You keep your head down, collect names, and leave with useful hints — but the deeper conspiracy remains buried for now.</p>`,
+      background: 'linear-gradient(180deg, #3a5a3a 0%, #162816 100%)',
+      choices: [
+        { text: 'Return to the planning table', next: 'batch001_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch001_ironroot_rumors = true;
+        LOCATIONS.ironroot_forest.discovered = true;
       }
     },
 
