@@ -284,6 +284,75 @@ const STORY = (() => {
     dark_tower: { name: 'Malachar\'s Tower', icon: '🗼', discovered: false }
   };
 
+  const FRONTIER_CLUSTERS = [
+    { id: 'northern_reach', name: 'Northern Reach', icon: '🧊', background: 'linear-gradient(180deg, #2c3e5f 0%, #141d2f 100%)' },
+    { id: 'verdant_wilds', name: 'Verdant Wilds', icon: '🌿', background: 'linear-gradient(180deg, #285138 0%, #11261a 100%)' },
+    { id: 'shattered_frontier', name: 'Shattered Frontier', icon: '⛰️', background: 'linear-gradient(180deg, #4a2b23 0%, #1f110e 100%)' },
+    { id: 'coastal_veil', name: 'Coastal Veil', icon: '🌊', background: 'linear-gradient(180deg, #1f4254 0%, #0d1d25 100%)' },
+    { id: 'high_arcana', name: 'High Arcana', icon: '✨', background: 'linear-gradient(180deg, #3c2a5e 0%, #19112a 100%)' }
+  ];
+
+  const FRONTIER_LOCATIONS = [
+    { id: 'frontier_frostmere_expanse', name: 'Frostmere Expanse', icon: '❄️', cluster: 'northern_reach', theme: 'frozen trade roads and buried ward-stones' },
+    { id: 'frontier_aurora_cliffs', name: 'Aurora Cliffs', icon: '🌌', cluster: 'northern_reach', theme: 'glowing cliff paths watched by sky-hunters' },
+    { id: 'frontier_wolfsgrin_pass', name: 'Wolfsgrin Pass', icon: '🐺', cluster: 'northern_reach', theme: 'howling passes where caravans vanish at dusk' },
+    { id: 'frontier_starfall_tarn', name: 'Starfall Tarn', icon: '🌠', cluster: 'northern_reach', theme: 'meteor-scarred waters resonating with shard light' },
+    { id: 'frontier_rimewatch_bastion', name: 'Rimewatch Bastion', icon: '🛡️', cluster: 'northern_reach', theme: 'an abandoned stronghold guarding the winter frontier' },
+    { id: 'frontier_silverpine_hollow', name: 'Silverpine Hollow', icon: '🌲', cluster: 'northern_reach', theme: 'needlewoods hiding old ranger relay caches' },
+    { id: 'frontier_skyforge_ledge', name: 'Skyforge Ledge', icon: '⚒️', cluster: 'northern_reach', theme: 'wind-blasted forges fed by dragonfire vents' },
+    { id: 'frontier_glacial_echo_cavern', name: 'Glacial Echo Cavern', icon: '🧊', cluster: 'northern_reach', theme: 'ice tunnels that replay voices from prior wars' },
+    { id: 'frontier_wintergate_stairs', name: 'Wintergate Stairs', icon: '🏔️', cluster: 'northern_reach', theme: 'switchback stairs linking valley citadels' },
+    { id: 'frontier_pale_comet_fields', name: 'Pale Comet Fields', icon: '☄️', cluster: 'northern_reach', theme: 'frost plains seeded with celestial fragments' },
+
+    { id: 'frontier_briarheart_basin', name: 'Briarheart Basin', icon: '🌿', cluster: 'verdant_wilds', theme: 'thorn-choked basin villages split by old pacts' },
+    { id: 'frontier_emberleaf_grove', name: 'Emberleaf Grove', icon: '🍂', cluster: 'verdant_wilds', theme: 'burning-canopy groves sustained by ember sap' },
+    { id: 'frontier_mossveil_crossing', name: 'Mossveil Crossing', icon: '🌫️', cluster: 'verdant_wilds', theme: 'fogged bridges connecting hidden shrine paths' },
+    { id: 'frontier_sunpetal_meadow', name: 'Sunpetal Meadow', icon: '🌼', cluster: 'verdant_wilds', theme: 'bright grasslands masking sinkhole catacombs' },
+    { id: 'frontier_thistlekeep_ruins', name: 'Thistlekeep Ruins', icon: '🏚️', cluster: 'verdant_wilds', theme: 'collapsed keeps overtaken by razor-vines' },
+    { id: 'frontier_rootwake_hollow', name: 'Rootwake Hollow', icon: '🪵', cluster: 'verdant_wilds', theme: 'hollow roots where smugglers run root-routes' },
+    { id: 'frontier_greenwarden_spire', name: 'Greenwarden Spire', icon: '🗼', cluster: 'verdant_wilds', theme: 'watchtowers held by rival forest wardens' },
+    { id: 'frontier_vinebound_causeway', name: 'Vinebound Causeway', icon: '🛤️', cluster: 'verdant_wilds', theme: 'ancient stone roads strangled by sentient vines' },
+    { id: 'frontier_dewglass_orchard', name: 'Dewglass Orchard', icon: '🍏', cluster: 'verdant_wilds', theme: 'orchards where crystal fruit stores memory echoes' },
+    { id: 'frontier_hollowfern_den', name: 'Hollowfern Den', icon: '🦌', cluster: 'verdant_wilds', theme: 'wildkin gathering dens beneath giant ferns' },
+
+    { id: 'frontier_cinderbreak_ridge', name: 'Cinderbreak Ridge', icon: '🔥', cluster: 'shattered_frontier', theme: 'rift ridges fractured by repeating firestorms' },
+    { id: 'frontier_obsidian_mile', name: 'Obsidian Mile', icon: '🪨', cluster: 'shattered_frontier', theme: 'blackglass highways patrolled by mercenary bands' },
+    { id: 'frontier_thunderbone_quarry', name: 'Thunderbone Quarry', icon: '⛏️', cluster: 'shattered_frontier', theme: 'quarries where fossilized leviathan bones hum' },
+    { id: 'frontier_ashbarrow_cut', name: 'Ashbarrow Cut', icon: '🗿', cluster: 'shattered_frontier', theme: 'funeral roads sealed under drifting ash' },
+    { id: 'frontier_slagwind_falls', name: 'Slagwind Falls', icon: '🌋', cluster: 'shattered_frontier', theme: 'molten cataracts forging weapons in open air' },
+    { id: 'frontier_redglass_fissure', name: 'Redglass Fissure', icon: '🟥', cluster: 'shattered_frontier', theme: 'crimson fault-lines pulsing with corrupted mana' },
+    { id: 'frontier_basalt_reach', name: 'Basalt Reach', icon: '🏞️', cluster: 'shattered_frontier', theme: 'columned badlands with hidden siege vaults' },
+    { id: 'frontier_emberdrift_pit', name: 'Emberdrift Pit', icon: '🔥', cluster: 'shattered_frontier', theme: 'collapsed pits emitting prophetic smoke plumes' },
+    { id: 'frontier_blackflare_badlands', name: 'Blackflare Badlands', icon: '⚡', cluster: 'shattered_frontier', theme: 'storm-scoured flats lit by black lightning' },
+    { id: 'frontier_molten_crown_crater', name: 'Molten Crown Crater', icon: '👑', cluster: 'shattered_frontier', theme: 'impact crater tied to Crown-shard disturbances' },
+
+    { id: 'frontier_tidewrack_harbor', name: 'Tidewrack Harbor', icon: '⚓', cluster: 'coastal_veil', theme: 'storm-broken docks ruled by salvage guilds' },
+    { id: 'frontier_moonwake_inlet', name: 'Moonwake Inlet', icon: '🌙', cluster: 'coastal_veil', theme: 'night-tide inlets revealing hidden channels' },
+    { id: 'frontier_sirens_rest', name: 'Siren\'s Rest', icon: '🎶', cluster: 'coastal_veil', theme: 'reef sanctuaries where songs alter sea routes' },
+    { id: 'frontier_brineglass_reef', name: 'Brineglass Reef', icon: '🪸', cluster: 'coastal_veil', theme: 'glass reefs sheltering contraband vaults' },
+    { id: 'frontier_stormlantern_point', name: 'Stormlantern Point', icon: '🏮', cluster: 'coastal_veil', theme: 'signal towers coordinating blackout fleets' },
+    { id: 'frontier_kelpwarden_stride', name: 'Kelpwarden Stride', icon: '🌊', cluster: 'coastal_veil', theme: 'tidal roads defended by kelp-bound wardens' },
+    { id: 'frontier_whisperbay_grotto', name: 'Whisperbay Grotto', icon: '🦪', cluster: 'coastal_veil', theme: 'caves where echoes map submerged ruins' },
+    { id: 'frontier_dawnbreaker_jetty', name: 'Dawnbreaker Jetty', icon: '🌅', cluster: 'coastal_veil', theme: 'military piers staging dawn interception raids' },
+    { id: 'frontier_shellspire_isle', name: 'Shellspire Isle', icon: '🏝️', cluster: 'coastal_veil', theme: 'isolated island spires guarded by shell golems' },
+    { id: 'frontier_lanterns_end', name: 'Lantern\'s End', icon: '🕯️', cluster: 'coastal_veil', theme: 'graveyard harbor where lost fleets reappear' },
+
+    { id: 'frontier_runescar_plateau', name: 'Runescar Plateau', icon: '🔮', cluster: 'high_arcana', theme: 'plateaus etched with unstable battle-runes' },
+    { id: 'frontier_mirrored_atrium', name: 'Mirrored Atrium', icon: '🪞', cluster: 'high_arcana', theme: 'reflective halls duplicating spell effects' },
+    { id: 'frontier_aetherloom_sanctum', name: 'Aetherloom Sanctum', icon: '✨', cluster: 'high_arcana', theme: 'sanctums weaving leyline strands into wards' },
+    { id: 'frontier_glyphwatch_observatory', name: 'Glyphwatch Observatory', icon: '🔭', cluster: 'high_arcana', theme: 'observatories tracking shard resonance storms' },
+    { id: 'frontier_prismvault_gallery', name: 'Prismvault Gallery', icon: '💎', cluster: 'high_arcana', theme: 'vault galleries refracting memory projections' },
+    { id: 'frontier_oathfire_citadel', name: 'Oathfire Citadel', icon: '🏯', cluster: 'high_arcana', theme: 'citadel courts where oath-magic binds factions' },
+    { id: 'frontier_chronicle_terrace', name: 'Chronicle Terrace', icon: '📜', cluster: 'high_arcana', theme: 'scriptorium terraces preserving war annals' },
+    { id: 'frontier_starlit_reservoir', name: 'Starlit Reservoir', icon: '🌠', cluster: 'high_arcana', theme: 'mana reservoirs filled by starfall runoff' },
+    { id: 'frontier_nullstone_labyrinth', name: 'Nullstone Labyrinth', icon: '🧩', cluster: 'high_arcana', theme: 'anti-magic maze chambers with shifting geometry' },
+    { id: 'frontier_crownward_threshold', name: 'Crownward Threshold', icon: '👑', cluster: 'high_arcana', theme: 'sealed threshold where Crown wards can be reforged' }
+  ];
+
+  FRONTIER_LOCATIONS.forEach((location) => {
+    LOCATIONS[location.id] = { name: location.name, icon: location.icon, discovered: false };
+  });
+
   // ==================== SCENES ====================
   const SCENES = {
 
@@ -1316,6 +1385,12 @@ const STORY = (() => {
           requirementText: 'Requires Glass Dunes route decision'
         },
         { text: '🔟 Multi-Stage Rescue (Thornvale Hinterlands)', next: 'batch002_thornvale_rescue' },
+        {
+          text: '🗺️ Launch Frontier Network Operations (50 new locations)',
+          next: 'batch003_frontier_hub',
+          condition: (state) => state.flags.batch002_rescue_complete || state.flags.batch002_wilds_elite_stabilized,
+          requirementText: 'Requires completing at least one Batch 002 operation'
+        },
         { text: '← Return to Batch 001 planning', next: 'batch001_hub' },
         { text: '← Return to core quest planning', next: 'thornvale_prepare' }
       ],
@@ -2655,6 +2730,80 @@ const STORY = (() => {
       hideStats: true
     }
   };
+
+
+  function addFrontierNetworkScenes() {
+    SCENES.batch003_frontier_hub = {
+      text: `<p>Frontier command authorizes a broad recon push beyond established resistance routes. Fifty new locations are now charted for operations, supply recovery, and alliance-building.</p>
+<p>Select a frontier cluster to deploy scouts, secure routes, and thread these discoveries into your ongoing Crown shard campaign.</p>`,
+      background: 'linear-gradient(180deg, #2d2442 0%, #120f1f 100%)',
+      choices: [
+        ...FRONTIER_CLUSTERS.map((cluster) => ({
+          text: `${cluster.icon} ${cluster.name} Operations`,
+          next: `batch003_cluster_${cluster.id}`
+        })),
+        { text: '← Return to Batch 002 planning', next: 'batch002_hub' },
+        { text: '← Return to core quest planning', next: 'thornvale_prepare' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        state.flags.frontier_network_unlocked = true;
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    };
+
+    FRONTIER_CLUSTERS.forEach((cluster) => {
+      const clusterSceneId = `batch003_cluster_${cluster.id}`;
+      const clusterLocations = FRONTIER_LOCATIONS.filter((location) => location.cluster === cluster.id);
+
+      SCENES[clusterSceneId] = {
+        text: `<p>${cluster.name} is active with ${clusterLocations.length} mapped hotspots. Each site can shift faction leverage, resource flows, and late-campaign support.</p>
+<p>Choose a location to run a targeted operation.</p>`,
+        background: cluster.background,
+        choices: [
+          ...clusterLocations.map((location) => ({
+            text: `${location.icon} ${location.name}`,
+            next: `frontier_site_${location.id}`
+          })),
+          { text: '← Back to Frontier Network operations', next: 'batch003_frontier_hub' }
+        ],
+        onEnter: (state) => {
+          state.flags.frontier_network_unlocked = true;
+        }
+      };
+    });
+
+    FRONTIER_LOCATIONS.forEach((location) => {
+      const sceneId = `frontier_site_${location.id}`;
+      const rewardFlag = `frontier_site_secured_${location.id}`;
+      const cluster = FRONTIER_CLUSTERS.find((entry) => entry.id === location.cluster);
+      const fallbackHub = cluster ? `batch003_cluster_${cluster.id}` : 'batch003_frontier_hub';
+
+      SCENES[sceneId] = {
+        text: `<p>You deploy to <span class="story-emphasis">${location.name}</span>, a frontier hotspot known for ${location.theme}.</p>
+<p>Securing this node improves resistance mobility and seeds future operations in nearby routes.</p>`,
+        background: cluster ? cluster.background : 'linear-gradient(180deg, #2a2a2a 0%, #111111 100%)',
+        choices: [
+          { text: 'Secure the route and catalog strategic findings', next: fallbackHub },
+          { text: 'Return to Frontier Network operations', next: 'batch003_frontier_hub' },
+          { text: 'Return to core quest planning', next: 'thornvale_prepare' }
+        ],
+        onEnter: (state) => {
+          state.location = location.id;
+          state.flags.frontier_network_unlocked = true;
+          state.flags[`frontier_discovered_${location.id}`] = true;
+          LOCATIONS[location.id].discovered = true;
+          if (!state.flags[rewardFlag]) {
+            state.flags[rewardFlag] = true;
+            state.xp += 6;
+            state.gold += 8;
+          }
+        }
+      };
+    });
+  }
+
+  addFrontierNetworkScenes();
 
   return { ITEMS, ENEMIES, LOCATIONS, SCENES };
 })();

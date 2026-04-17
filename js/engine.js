@@ -335,6 +335,15 @@ const Engine = (() => {
       if (state.flags.batch002_rescue_complete || state.visitedScenes.includes('batch002_thornvale_rescue')) {
         STORY.LOCATIONS.thornvale_hinterlands.discovered = true;
       }
+      for (const [locationId, locationData] of Object.entries(STORY.LOCATIONS)) {
+        if (!locationId.startsWith('frontier_')) continue;
+        if (
+          state.flags[`frontier_discovered_${locationId}`] ||
+          state.visitedScenes.includes(`frontier_site_${locationId}`)
+        ) {
+          locationData.discovered = true;
+        }
+      }
       if (onStateChange) onStateChange(state);
       return true;
     } catch {
