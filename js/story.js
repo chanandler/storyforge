@@ -696,7 +696,7 @@ const STORY = (() => {
           condition: (state) => LOCATIONS.fallen_city.discovered && state.flags.shard_count >= 3,
           requirementText: 'Requires 3+ shards and knowledge of location'
         },
-        { text: '🧭 Investigate frontier opportunities (Batch 001)', next: 'batch001_hub' },
+        { text: '🧭 Investigate frontier operations', next: 'batch001_hub' },
         { text: '🔨 Visit the blacksmith before leaving', next: 'blacksmith' },
         { text: '🍺 Stop by the tavern', next: 'tavern' }
       ],
@@ -719,8 +719,8 @@ const STORY = (() => {
         {
           text: '5️⃣ Weather-Bound Ruin Event (Auralis Ruins)',
           next: 'batch001_auralis_weather',
-          condition: (state) => state.flags.shard_count >= 3 && (state.flags.batch001_stormfang_cleansed || state.flags.city_complete),
-          requirementText: 'Requires 3+ shards and a stable stormfront'
+          condition: (state) => state.flags.shard_count >= 3 && state.flags.batch001_stormfang_cleansed,
+          requirementText: 'Requires 3+ shards and a stabilized stormfront'
         },
         { text: '6️⃣ Lore Archive Recovery (Sunken Marshes)', next: 'batch001_sunken_archive' },
         {
@@ -775,7 +775,7 @@ const STORY = (() => {
         {
           text: 'Place a relic in the basin and trigger the memory-echo',
           next: 'batch001_memory_echo_triggered',
-          condition: (state) => state.inventory.includes('old_map') || state.inventory.includes('shard_messenger') || state.inventory.includes('elara_amulet') || state.inventory.includes('shield_ring'),
+          condition: (state) => ['old_map', 'shard_messenger', 'elara_amulet', 'shield_ring'].some(item => state.inventory.includes(item)),
           requirementText: 'Requires a relic from prior adventures'
         },
         { text: 'Record the landmark and return to camp', next: 'batch001_hub' }
