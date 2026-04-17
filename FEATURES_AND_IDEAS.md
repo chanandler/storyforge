@@ -16,6 +16,7 @@ Status: ✅ Implemented in game content and progression flow (memory-echo landma
 10. Introduce a local festival location in Ironroot Forest that masks political intrigue and hidden mission entry points. Supports late-game convergence toward Malachar.
 
 ## Batch 002
+Status: ✅ Implemented in game content and progression flow (elite territory escalation, weather-state corridor event, Stormfang archive recovery, Auralis relay restoration, Sunken puzzle threads, Ashen companion branch, Moonlit festival intrigue, Glass Dunes smuggler route outcomes, Ironroot guardian order selection, and Thornvale rescue outcomes shaped by prior village aid/abandonment).
 1. Add an elite enemy territory in Whispering Wilds that evolves over chapters and reflects Malachar’s spreading influence. Connects to shard-recovery pacing.
 2. Create a weather-bound location event in Cryptward Depths that appears only during certain world states and quest progress. Builds companion backstory continuity.
 3. Introduce a lore archive room in Stormfang Range where recovered texts unlock map markers for future location clusters. Expands faction conflict across chapters.

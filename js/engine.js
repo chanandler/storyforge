@@ -278,6 +278,63 @@ const Engine = (() => {
       ) {
         STORY.LOCATIONS.ironroot_forest.discovered = true;
       }
+      if (
+        state.flags.batch002_wilds_elite_stabilized ||
+        state.visitedScenes.includes('batch002_wilds_elite')
+      ) {
+        STORY.LOCATIONS.whispering_wilds.discovered = true;
+      }
+      if (state.flags.batch002_crypt_weather_done || state.visitedScenes.includes('batch002_crypt_weather')) {
+        STORY.LOCATIONS.cryptward_depths.discovered = true;
+      }
+      if (state.flags.batch002_storm_archive_texts || state.visitedScenes.includes('batch002_storm_archive')) {
+        STORY.LOCATIONS.stormfang_range.discovered = true;
+      }
+      if (state.flags.batch002_storm_archive_texts || state.flags.batch002_auralis_restored) {
+        STORY.LOCATIONS.auralis_ruins.discovered = true;
+      }
+      if (
+        state.flags.batch002_storm_archive_texts ||
+        state.flags.batch002_auralis_restored ||
+        state.flags.batch002_sunken_arc_complete ||
+        state.visitedScenes.includes('batch002_sunken_puzzle')
+      ) {
+        STORY.LOCATIONS.sunken_marshes.discovered = true;
+      }
+      if (
+        state.flags.batch002_auralis_restored ||
+        state.flags.batch002_ashen_lyra_arc ||
+        state.flags.batch002_ashen_solo ||
+        state.visitedScenes.includes('batch002_ashen_companion')
+      ) {
+        STORY.LOCATIONS.ashen_steppe.discovered = true;
+      }
+      if (
+        state.flags.batch002_sunken_arc_complete ||
+        state.flags.batch002_moonlit_intrigue_exposed ||
+        state.flags.batch002_moonlit_intrigue_covered ||
+        state.visitedScenes.includes('batch002_moonlit_festival')
+      ) {
+        STORY.LOCATIONS.moonlit_coast.discovered = true;
+      }
+      if (
+        state.flags.batch002_moonlit_intrigue_exposed ||
+        state.flags.batch002_moonlit_intrigue_covered ||
+        state.flags.batch002_glass_route_resolved ||
+        state.visitedScenes.includes('batch002_glass_smuggler')
+      ) {
+        STORY.LOCATIONS.glass_dunes.discovered = true;
+      }
+      if (
+        state.flags.batch002_glass_route_resolved ||
+        state.flags.batch002_order_support ||
+        state.visitedScenes.includes('batch002_ironroot_trial')
+      ) {
+        STORY.LOCATIONS.ironroot_forest.discovered = true;
+      }
+      if (state.flags.batch002_rescue_complete || state.visitedScenes.includes('batch002_thornvale_rescue')) {
+        STORY.LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
       if (onStateChange) onStateChange(state);
       return true;
     } catch {
