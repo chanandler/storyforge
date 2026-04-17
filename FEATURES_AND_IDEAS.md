@@ -3,6 +3,7 @@
 Goal alignment: 100 batches × 10 ideas (1,000 total), each designed to expand locations while staying wired into core story arcs, companions, factions, and Crown shard progression.
 
 ## Batch 001
+Status: ✅ Implemented in game content and progression flow (memory-echo landmark, conflict outcomes, sanctuary hub, evolving elite territory, weather event gating, archive markers, restoration links, puzzle arc threads, companion stop, and festival intrigue entry).
 1. Place a memory-echo landmark in Thornvale Hinterlands that reveals backstory scenes when the player carries specific relics. Connects to shard-recovery pacing.
 2. Add a settlement conflict in Whispering Wilds with outcomes that permanently alter nearby locations and vendors. Builds companion backstory continuity.
 3. Design a hidden sanctuary in Cryptward Depths that can become a recurring safe hub if protected during an attack event. Expands faction conflict across chapters.

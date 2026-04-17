@@ -226,6 +226,58 @@ const Engine = (() => {
       if (state.flags.city_complete || state.visitedScenes.includes('city_entrance')) {
         STORY.LOCATIONS.fallen_city.discovered = true;
       }
+      if (state.flags.batch001_memory_echo_complete || state.visitedScenes.includes('batch001_memory_echo')) {
+        STORY.LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+      if (
+        state.flags.batch001_wilds_settlers ||
+        state.flags.batch001_wilds_wildkin ||
+        state.flags.batch001_wilds_mediated ||
+        state.visitedScenes.includes('batch001_wilds_conflict')
+      ) {
+        STORY.LOCATIONS.whispering_wilds.discovered = true;
+      }
+      if (
+        state.flags.batch001_sanctuary_unlocked ||
+        state.visitedScenes.includes('batch001_cryptward_sanctuary')
+      ) {
+        STORY.LOCATIONS.cryptward_depths.discovered = true;
+      }
+      if (
+        state.flags.batch001_stormfang_cleansed ||
+        state.flags.batch001_stormfang_spreading ||
+        state.visitedScenes.includes('batch001_stormfang_territory')
+      ) {
+        STORY.LOCATIONS.stormfang_range.discovered = true;
+      }
+      if (
+        state.flags.batch001_auralis_weather_done ||
+        state.visitedScenes.includes('batch001_auralis_weather')
+      ) {
+        STORY.LOCATIONS.auralis_ruins.discovered = true;
+      }
+      if (state.flags.batch001_archive_texts || state.visitedScenes.includes('batch001_sunken_archive')) {
+        STORY.LOCATIONS.sunken_marshes.discovered = true;
+      }
+      if (state.flags.batch001_archive_texts || state.flags.batch001_ashen_restored) {
+        STORY.LOCATIONS.ashen_steppe.discovered = true;
+        STORY.LOCATIONS.moonlit_coast.discovered = true;
+      }
+      if (
+        state.flags.batch001_ashen_restored ||
+        state.flags.batch001_moonlit_arc_complete ||
+        state.flags.batch001_glass_lyra_arc ||
+        state.flags.batch001_glass_solo
+      ) {
+        STORY.LOCATIONS.glass_dunes.discovered = true;
+      }
+      if (
+        state.flags.batch001_ashen_restored ||
+        state.flags.batch001_ironroot_hidden_mission ||
+        state.flags.batch001_ironroot_rumors
+      ) {
+        STORY.LOCATIONS.ironroot_forest.discovered = true;
+      }
       if (onStateChange) onStateChange(state);
       return true;
     } catch {
