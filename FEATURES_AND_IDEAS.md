@@ -64,7 +64,6 @@ Use the full expanded pool below when drafting or implementing future ideas so l
 - Starlit Reservoir
 - Nullstone Labyrinth
 - Crownward Threshold
-
 ## Batch 001
 Status: ✅ Implemented in game content and progression flow (memory-echo landmark, conflict outcomes, sanctuary hub, evolving elite territory, weather event gating, archive markers, restoration links, puzzle arc threads, companion stop, and festival intrigue entry).
 1. Place a memory-echo landmark in Thornvale Hinterlands that reveals backstory scenes when the player carries specific relics. Connects to shard-recovery pacing.

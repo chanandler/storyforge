@@ -1389,7 +1389,7 @@ const STORY = (() => {
           text: '🗺️ Launch Frontier Network Operations (50 new locations)',
           next: 'batch003_frontier_hub',
           condition: (state) => state.flags.batch002_rescue_complete || state.flags.batch002_wilds_elite_stabilized,
-          requirementText: 'Requires completing at least one Batch 002 operation'
+          requirementText: 'Requires completing the Batch 002 rescue or wilds escalation'
         },
         { text: '← Return to Batch 001 planning', next: 'batch001_hub' },
         { text: '← Return to core quest planning', next: 'thornvale_prepare' }
@@ -2732,7 +2732,7 @@ const STORY = (() => {
   };
 
 
-  function addFrontierNetworkScenes() {
+  function initializeFrontierNetworkScenes() {
     SCENES.batch003_frontier_hub = {
       text: `<p>Frontier command authorizes a broad recon push beyond established resistance routes. Fifty new locations are now charted for operations, supply recovery, and alliance-building.</p>
 <p>Select a frontier cluster to deploy scouts, secure routes, and thread these discoveries into your ongoing Crown shard campaign.</p>`,
@@ -2767,9 +2767,7 @@ const STORY = (() => {
           })),
           { text: '← Back to Frontier Network operations', next: 'batch003_frontier_hub' }
         ],
-        onEnter: (state) => {
-          state.flags.frontier_network_unlocked = true;
-        }
+        onEnter: () => {}
       };
     });
 
@@ -2790,7 +2788,6 @@ const STORY = (() => {
         ],
         onEnter: (state) => {
           state.location = location.id;
-          state.flags.frontier_network_unlocked = true;
           state.flags[`frontier_discovered_${location.id}`] = true;
           LOCATIONS[location.id].discovered = true;
           if (!state.flags[rewardFlag]) {
@@ -2803,7 +2800,7 @@ const STORY = (() => {
     });
   }
 
-  addFrontierNetworkScenes();
+  initializeFrontierNetworkScenes();
 
-  return { ITEMS, ENEMIES, LOCATIONS, SCENES };
+  return { ITEMS, ENEMIES, LOCATIONS, SCENES, FRONTIER_CLUSTERS, FRONTIER_LOCATIONS };
 })();
