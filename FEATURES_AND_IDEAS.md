@@ -2,6 +2,68 @@
 
 Goal alignment: 100 batches × 10 ideas (1,000 total), each designed to expand locations while staying wired into core story arcs, companions, factions, and Crown shard progression.
 
+## Expanded Location Pool (Now Includes 50 New Frontier Locations)
+Use the full expanded pool below when drafting or implementing future ideas so location rotation is no longer limited to the original frontier set.
+
+### Northern Reach
+- Frostmere Expanse
+- Aurora Cliffs
+- Wolfsgrin Pass
+- Starfall Tarn
+- Rimewatch Bastion
+- Silverpine Hollow
+- Skyforge Ledge
+- Glacial Echo Cavern
+- Wintergate Stairs
+- Pale Comet Fields
+
+### Verdant Wilds
+- Briarheart Basin
+- Emberleaf Grove
+- Mossveil Crossing
+- Sunpetal Meadow
+- Thistlekeep Ruins
+- Rootwake Hollow
+- Greenwarden Spire
+- Vinebound Causeway
+- Dewglass Orchard
+- Hollowfern Den
+
+### Shattered Frontier
+- Cinderbreak Ridge
+- Obsidian Mile
+- Thunderbone Quarry
+- Ashbarrow Cut
+- Slagwind Falls
+- Redglass Fissure
+- Basalt Reach
+- Emberdrift Pit
+- Blackflare Badlands
+- Molten Crown Crater
+
+### Coastal Veil
+- Tidewrack Harbor
+- Moonwake Inlet
+- Siren's Rest
+- Brineglass Reef
+- Stormlantern Point
+- Kelpwarden Stride
+- Whisperbay Grotto
+- Dawnbreaker Jetty
+- Shellspire Isle
+- Lantern's End
+
+### High Arcana
+- Runescar Plateau
+- Mirrored Atrium
+- Aetherloom Sanctum
+- Glyphwatch Observatory
+- Prismvault Gallery
+- Oathfire Citadel
+- Chronicle Terrace
+- Starlit Reservoir
+- Nullstone Labyrinth
+- Crownward Threshold
 ## Batch 001
 Status: ✅ Implemented in game content and progression flow (memory-echo landmark, conflict outcomes, sanctuary hub, evolving elite territory, weather event gating, archive markers, restoration links, puzzle arc threads, companion stop, and festival intrigue entry).
 1. Place a memory-echo landmark in Thornvale Hinterlands that reveals backstory scenes when the player carries specific relics. Connects to shard-recovery pacing.

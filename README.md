@@ -15,7 +15,7 @@ You are **Kael**, a former ranger of the King's Watch, who discovers a dying mes
 ## ✨ Features
 
 - **Branching narrative** with meaningful choices that affect the story
-- **5 unique regions** to explore: Thornvale Village, Whispering Woods, Ancient Crypt, Stormfang Peak, and the Fallen City of Auralis
+- **Expanded world map** with core quest regions, frontier operations, and now **50 newly added locations** for ongoing missions
 - **Turn-based combat** system with attack, magic, potions, and flee options
 - **Inventory system** with weapons, armor, accessories, consumables, and quest items
 - **Character progression** — gain XP, level up, and grow stronger
@@ -36,6 +36,7 @@ You are **Kael**, a former ranger of the King's Watch, who discovers a dying mes
 | 🏔️ Stormfang Peak | A mountain guarded by the last great dragon |
 | 🏰 Fallen City of Auralis | The ruined capital where the Crown was shattered |
 | 🗼 Malachar's Tower | The final confrontation |
+| 🗺️ Frontier Network | 50 new scoutable locations across five frontier clusters (Northern Reach, Verdant Wilds, Shattered Frontier, Coastal Veil, and High Arcana) |
 
 ## 🎯 Tips
 
