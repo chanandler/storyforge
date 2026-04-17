@@ -696,7 +696,7 @@ const STORY = (() => {
           condition: (state) => LOCATIONS.fallen_city.discovered && state.flags.shard_count >= 3,
           requirementText: 'Requires 3+ shards and knowledge of location'
         },
-        { text: '🧭 Investigate frontier operations (Batches I–II)', next: 'batch001_hub' },
+        { text: '🧭 Investigate frontier operations (Batch I)', next: 'batch001_hub' },
         { text: '🔨 Visit the blacksmith before leaving', next: 'blacksmith' },
         { text: '🍺 Stop by the tavern', next: 'tavern' }
       ],
