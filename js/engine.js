@@ -280,7 +280,6 @@ const Engine = (() => {
       }
       if (
         state.flags.batch002_wilds_elite_stabilized ||
-        state.flags.batch002_wilds_elite_overrun ||
         state.visitedScenes.includes('batch002_wilds_elite')
       ) {
         STORY.LOCATIONS.whispering_wilds.discovered = true;

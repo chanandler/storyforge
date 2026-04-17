@@ -1294,7 +1294,7 @@ const STORY = (() => {
         {
           text: '6️⃣ Companion Stop (Ashen Steppe)',
           next: 'batch002_ashen_companion',
-          condition: (state) => state.flags.batch002_auralis_restored || state.flags.batch001_archive_texts,
+          condition: (state) => state.flags.batch002_auralis_restored || state.flags.batch002_storm_archive_texts,
           requirementText: 'Requires restored route intel'
         },
         {
@@ -1356,7 +1356,6 @@ const STORY = (() => {
       onEnter: (state) => {
         state.location = 'whispering_wilds';
         state.flags.batch002_wilds_elite_stabilized = true;
-        state.flags.batch002_wilds_elite_overrun = false;
         state.xp += 20;
         LOCATIONS.whispering_wilds.discovered = true;
       }
@@ -1371,7 +1370,6 @@ const STORY = (() => {
       onEnter: (state) => {
         state.location = 'whispering_wilds';
         state.flags.batch002_wilds_elite_stabilized = true;
-        state.flags.batch002_wilds_elite_overrun = false;
         state.health = Math.max(1, state.health - 14);
         state.xp += 30;
         LOCATIONS.whispering_wilds.discovered = true;
