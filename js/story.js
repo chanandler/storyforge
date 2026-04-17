@@ -1386,8 +1386,8 @@ const STORY = (() => {
         },
         { text: '🔟 Multi-Stage Rescue (Thornvale Hinterlands)', next: 'batch002_thornvale_rescue' },
         {
-          text: '🗺️ Launch Frontier Network Operations (50 new locations)',
-          next: 'batch003_frontier_hub',
+          text: '➡️ Advance to Batch 003 operations',
+          next: 'batch003_hub',
           condition: (state) => state.flags.batch002_rescue_complete || state.flags.batch002_wilds_elite_stabilized,
           requirementText: 'Requires completing the Batch 002 rescue or wilds escalation'
         },
@@ -1894,6 +1894,658 @@ const STORY = (() => {
         state.flags.batch002_rescue_complete = true;
         state.xp += 18;
         LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    // ===== BATCH 003 IDEAS =====
+    batch003_hub: {
+      text: `<p>Batch 003 operations shift from emergency stabilization to regional leverage: restored links, puzzle intelligence, faction diplomacy, and relic synthesis that can influence endgame support.</p>
+<p>Command expects outcomes here to reshape travel access, alliance posture, and how resistance chapters align against Malachar.</p>`,
+      background: 'linear-gradient(180deg, #263347 0%, #0f1724 100%)',
+      choices: [
+        { text: '1️⃣ Landmark Restoration (Cryptward Depths)', next: 'batch003_crypt_restoration' },
+        { text: '2️⃣ Ruins Puzzle Wing (Stormfang Range)', next: 'batch003_storm_puzzle' },
+        {
+          text: '3️⃣ Companion Stop (Auralis Ruins)',
+          next: 'batch003_auralis_companion',
+          condition: (state) => state.flags.batch003_crypt_restored || state.flags.batch002_storm_archive_texts,
+          requirementText: 'Requires restoration or prior archive intel'
+        },
+        { text: '4️⃣ Festival Intrigue (Sunken Marshes)', next: 'batch003_sunken_festival' },
+        {
+          text: '5️⃣ Smuggler Route Node (Ashen Steppe)',
+          next: 'batch003_ashen_smuggler',
+          condition: (state) => state.flags.batch003_sunken_intrigue_exposed || state.flags.batch003_sunken_intrigue_covered,
+          requirementText: 'Requires Sunken festival lead'
+        },
+        {
+          text: '6️⃣ Guardian Trial Site (Moonlit Coast)',
+          next: 'batch003_moonlit_trial',
+          condition: (state) => state.flags.batch003_ashen_route_resolved,
+          requirementText: 'Requires Ashen route decision'
+        },
+        {
+          text: '7️⃣ Multi-Stage Rescue (Glass Dunes)',
+          next: 'batch003_glass_rescue',
+          condition: (state) => state.flags.batch003_moonlit_trial_complete,
+          requirementText: 'Requires Moonlit trial outcome'
+        },
+        { text: '8️⃣ Cursed Landmark (Ironroot Forest)', next: 'batch003_ironroot_curse' },
+        {
+          text: '9️⃣ Diplomatic Summit Venue (Thornvale Hinterlands)',
+          next: 'batch003_thornvale_summit',
+          condition: (state) => state.flags.batch003_ironroot_curse_touched,
+          requirementText: 'Requires engaging the Ironroot cursed landmark'
+        },
+        {
+          text: '🔟 Relic-Forging Enclave (Whispering Wilds)',
+          next: 'batch003_wilds_relic_forge',
+          condition: (state) => state.flags.batch003_summit_outcome,
+          requirementText: 'Requires summit outcome'
+        },
+        {
+          text: '🗺️ Launch Frontier Network Operations (50 new locations)',
+          next: 'batch003_frontier_hub',
+          condition: (state) => state.flags.batch003_relic_forge_complete || state.flags.batch003_glass_rescue_complete,
+          requirementText: 'Requires Batch 003 forge or rescue progress'
+        },
+        { text: '← Return to Batch 002 planning', next: 'batch002_hub' },
+        { text: '← Return to core quest planning', next: 'thornvale_prepare' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch003_crypt_restoration: {
+      text: `<p>In Cryptward Depths, broken ward pylons once linked emergency corridors between burial vaults and ridge outposts. Restoring them would reopen a safer travel lattice.</p>`,
+      background: 'linear-gradient(180deg, #2f2c45 0%, #141224 100%)',
+      choices: [
+        { text: 'Rebind the pylons and reopen the corridor links', next: 'batch003_crypt_restored' },
+        { text: 'Withdraw and preserve supplies', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        LOCATIONS.cryptward_depths.discovered = true;
+      }
+    },
+
+    batch003_crypt_restored: {
+      text: `<p>The pylon chain stabilizes. Relay glyphs reactivate and old travel lines reconnect, opening a cleaner approach toward Stormfang and Auralis operations.</p>`,
+      background: 'linear-gradient(180deg, #3a3657 0%, #1a1630 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'cryptward_depths';
+        state.flags.batch003_crypt_restored = true;
+        state.xp += 20;
+        LOCATIONS.cryptward_depths.discovered = true;
+        LOCATIONS.stormfang_range.discovered = true;
+        LOCATIONS.auralis_ruins.discovered = true;
+      }
+    },
+
+    batch003_storm_puzzle: {
+      text: `<p>Stormfang Range shelters a sealed puzzle wing of pressure locks and rune pivots. Each solved chamber reveals one thread from a long-form resistance chronicle.</p>`,
+      background: 'linear-gradient(180deg, #3b3b48 0%, #171722 100%)',
+      choices: [
+        {
+          text: 'Solve the next chamber in the wing',
+          next: 'batch003_storm_chamber_solved',
+          condition: (state) => (state.flags.batch003_storm_threads ?? 0) < 3,
+          requirementText: 'Three total chambers available'
+        },
+        {
+          text: 'Review the recovered chronicle threads',
+          next: 'batch003_storm_review',
+          condition: (state) => (state.flags.batch003_storm_threads ?? 0) > 0,
+          requirementText: 'Requires at least one solved chamber'
+        },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch003_storm_chamber_solved: {
+      text: `<p>You align runic load stones and unlock another chamber. The chronicle expands with new links between shard movement, escorts, and fallback routes.</p>`,
+      background: 'linear-gradient(180deg, #474757 0%, #1f1f30 100%)',
+      choices: [
+        { text: 'Continue in the puzzle wing', next: 'batch003_storm_puzzle' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        const threads = Math.min(3, (state.flags.batch003_storm_threads ?? 0) + 1);
+        state.flags.batch003_storm_threads = threads;
+        if (threads >= 3) {
+          state.flags.batch003_storm_arc_complete = true;
+          LOCATIONS.auralis_ruins.discovered = true;
+        }
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch003_storm_review: {
+      text: `<p>The compiled threads sharpen your operational timeline and expose weak points in enemy redeployment windows.</p>`,
+      background: 'linear-gradient(180deg, #404050 0%, #1b1b2b 100%)',
+      choices: [
+        { text: 'Return to the puzzle wing', next: 'batch003_storm_puzzle' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'stormfang_range';
+        LOCATIONS.stormfang_range.discovered = true;
+      }
+    },
+
+    batch003_auralis_companion: {
+      text: `<p>Auralis Ruins hosts a companion stop where command choices can pivot personal arcs and alter support behavior in later chapters.</p>`,
+      background: 'linear-gradient(180deg, #3d2f4f 0%, #170f24 100%)',
+      choices: [
+        {
+          text: 'Coordinate chapter priorities with Lyra',
+          next: 'batch003_auralis_lyra',
+          condition: (state) => state.flags.lyra_companion,
+          requirementText: 'Requires Lyra as active companion'
+        },
+        { text: 'Conduct a solo strategic debrief', next: 'batch003_auralis_solo' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'auralis_ruins';
+        LOCATIONS.auralis_ruins.discovered = true;
+      }
+    },
+
+    batch003_auralis_lyra: {
+      text: `<p>Lyra helps prioritize civilian protection triggers and alliance continuity over artifact-first doctrine.</p>
+<p><span class="story-action">Companion-aligned branch reinforced for future chapter outcomes.</span></p>`,
+      background: 'linear-gradient(180deg, #4a3a60 0%, #211437 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'auralis_ruins';
+        state.flags.batch003_auralis_companion_done = true;
+        if (!state.flags.batch003_auralis_lyra_arc) {
+          state.flags.batch003_auralis_lyra_arc = true;
+          state.flags.batch003_alternate_outcome = true;
+          state.xp += 16;
+        }
+        LOCATIONS.auralis_ruins.discovered = true;
+      }
+    },
+
+    batch003_auralis_solo: {
+      text: `<p>You map command pathways alone, gaining precision but less interpersonal leverage for downstream alliance choices.</p>`,
+      background: 'linear-gradient(180deg, #4a3a60 0%, #211437 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'auralis_ruins';
+        state.flags.batch003_auralis_companion_done = true;
+        state.flags.batch003_auralis_solo = true;
+        LOCATIONS.auralis_ruins.discovered = true;
+      }
+    },
+
+    batch003_sunken_festival: {
+      text: `<p>Sunken Marshes hosts a lantern procession over floodways — ideal cover for brokers exchanging coded directives and mission ciphers.</p>`,
+      background: 'linear-gradient(180deg, #254c46 0%, #0d201d 100%)',
+      choices: [
+        { text: 'Track and expose the courier lattice', next: 'batch003_sunken_exposed' },
+        { text: 'Blend in and extract low-noise rumors', next: 'batch003_sunken_covered' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'sunken_marshes';
+        LOCATIONS.sunken_marshes.discovered = true;
+      }
+    },
+
+    batch003_sunken_exposed: {
+      text: `<p>You crack the signal pattern and uncover route records pointing toward Ashen Steppe smuggler coordinators.</p>`,
+      background: 'linear-gradient(180deg, #30615a 0%, #13312b 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'sunken_marshes';
+        state.flags.batch003_sunken_intrigue_exposed = true;
+        state.flags.batch003_sunken_intrigue_covered = false;
+        LOCATIONS.sunken_marshes.discovered = true;
+        LOCATIONS.ashen_steppe.discovered = true;
+      }
+    },
+
+    batch003_sunken_covered: {
+      text: `<p>You keep contacts intact and leave with indirect route hints. The deeper network survives, but Ashen handlers are now traceable.</p>`,
+      background: 'linear-gradient(180deg, #30615a 0%, #13312b 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'sunken_marshes';
+        state.flags.batch003_sunken_intrigue_exposed = false;
+        state.flags.batch003_sunken_intrigue_covered = true;
+        LOCATIONS.sunken_marshes.discovered = true;
+        LOCATIONS.ashen_steppe.discovered = true;
+      }
+    },
+
+    batch003_ashen_smuggler: {
+      text: `<p>Ashen Steppe's smuggler spine now controls cross-desert handoffs. Your ruling here will ripple into route access and support reliability.</p>`,
+      background: 'linear-gradient(180deg, #67462d 0%, #29170e 100%)',
+      choices: [
+        { text: 'Approve controlled trade compacts', next: 'batch003_ashen_deal' },
+        { text: 'Disrupt cells and seize route ledgers', next: 'batch003_ashen_crackdown' },
+        {
+          text: 'Prioritize protected humanitarian corridors',
+          next: 'batch003_ashen_humanitarian',
+          condition: (state) => state.flags.batch003_auralis_lyra_arc || state.flags.lyra_companion,
+          requirementText: 'Requires companion diplomacy leverage'
+        },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        LOCATIONS.ashen_steppe.discovered = true;
+      }
+    },
+
+    batch003_ashen_deal: {
+      text: `<p>You legalize escorted lanes and tariff markers. Throughput improves, though gray-market pressure remains.</p>`,
+      background: 'linear-gradient(180deg, #765136 0%, #311c11 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        state.flags.batch003_ashen_trade_open = true;
+        state.flags.batch003_ashen_trade_restricted = false;
+        state.flags.batch003_ashen_trade_humanitarian = false;
+        state.flags.batch003_ashen_route_resolved = true;
+        state.gold += 18;
+        LOCATIONS.ashen_steppe.discovered = true;
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch003_ashen_crackdown: {
+      text: `<p>Your strike teams dismantle route cells and tighten convoy control. Smuggling falls, but movement flexibility narrows.</p>`,
+      background: 'linear-gradient(180deg, #765136 0%, #311c11 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        state.flags.batch003_ashen_trade_open = false;
+        state.flags.batch003_ashen_trade_restricted = true;
+        state.flags.batch003_ashen_trade_humanitarian = false;
+        state.flags.batch003_ashen_route_resolved = true;
+        state.inventory.push('health_potion');
+        LOCATIONS.ashen_steppe.discovered = true;
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch003_ashen_humanitarian: {
+      text: `<p>You enforce protected passage windows for civilians and healers, balancing order with access across steppe routes.</p>`,
+      background: 'linear-gradient(180deg, #765136 0%, #311c11 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ashen_steppe';
+        state.flags.batch003_ashen_trade_open = false;
+        state.flags.batch003_ashen_trade_restricted = false;
+        state.flags.batch003_ashen_trade_humanitarian = true;
+        state.flags.batch003_ashen_route_resolved = true;
+        state.inventory.push('mana_potion');
+        LOCATIONS.ashen_steppe.discovered = true;
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch003_moonlit_trial: {
+      text: `<p>At Moonlit Coast, a guardian trial site reawakens. The order you endorse here determines which doctrine reinforces your campaign.</p>`,
+      background: 'linear-gradient(180deg, #2f4568 0%, #131f31 100%)',
+      choices: [
+        { text: 'Support the Wardens of Stone (defense doctrine)', next: 'batch003_moonlit_stone' },
+        { text: 'Support the Dawnbound Spears (offense doctrine)', next: 'batch003_moonlit_spears' },
+        { text: 'Support the Ember Scribes (arcane doctrine)', next: 'batch003_moonlit_scribes' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        LOCATIONS.moonlit_coast.discovered = true;
+      }
+    },
+
+    batch003_moonlit_stone: {
+      text: `<p>The Wardens of Stone commit defensive cadres and reinforce your evacuation and holding plans.</p>`,
+      background: 'linear-gradient(180deg, #3d5b84 0%, #1b2f47 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        state.flags.batch003_trial_order = 'stone';
+        state.flags.batch003_moonlit_trial_complete = true;
+        if (!state.flags.batch003_trial_rewarded) {
+          state.stats.defense += 1;
+          state.flags.batch003_trial_rewarded = true;
+        }
+        LOCATIONS.moonlit_coast.discovered = true;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_moonlit_spears: {
+      text: `<p>The Dawnbound Spears align with your campaign and bolster rapid-strike doctrine for late chapters.</p>`,
+      background: 'linear-gradient(180deg, #3d5b84 0%, #1b2f47 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        state.flags.batch003_trial_order = 'spears';
+        state.flags.batch003_moonlit_trial_complete = true;
+        if (!state.flags.batch003_trial_rewarded) {
+          state.stats.attack += 1;
+          state.flags.batch003_trial_rewarded = true;
+        }
+        LOCATIONS.moonlit_coast.discovered = true;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_moonlit_scribes: {
+      text: `<p>The Ember Scribes commit arcane analysts and improve your ability to counter ritual escalations.</p>`,
+      background: 'linear-gradient(180deg, #3d5b84 0%, #1b2f47 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'moonlit_coast';
+        state.flags.batch003_trial_order = 'scribes';
+        state.flags.batch003_moonlit_trial_complete = true;
+        if (!state.flags.batch003_trial_rewarded) {
+          state.stats.magic += 1;
+          state.flags.batch003_trial_rewarded = true;
+        }
+        LOCATIONS.moonlit_coast.discovered = true;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_glass_rescue: {
+      text: `<p>A staged rescue unfolds across shifting dune corridors. Civilian response depends on whether nearby communities view your command as trustworthy.</p>`,
+      background: 'linear-gradient(180deg, #6a5532 0%, #2a1f10 100%)',
+      choices: [
+        {
+          text: 'Coordinate with trusted scout families',
+          next: 'batch003_glass_rescue_helped',
+          condition: (state) => state.flags.mercs_survived,
+          requirementText: 'Requires prior aid reputation'
+        },
+        {
+          text: 'Force extraction through unstable crowd lines',
+          next: 'batch003_glass_rescue_ignored',
+          condition: (state) => state.flags.abandoned_mercs,
+          requirementText: 'Available after abandonment outcomes'
+        },
+        { text: 'Run a balanced phased rescue plan', next: 'batch003_glass_rescue_neutral' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_glass_rescue_helped: {
+      text: `<p>Trusted routes hold, evac chains stay orderly, and most civilians clear the hazard corridor before nightfall.</p>`,
+      background: 'linear-gradient(180deg, #775f37 0%, #322413 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        state.flags.batch003_glass_rescue_outcome = 'helped';
+        state.flags.batch003_glass_rescue_complete = true;
+        state.gold += 16;
+        state.xp += 24;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_glass_rescue_ignored: {
+      text: `<p>Mistrust triggers delays and flareups. You still clear survivors, but the extraction costs blood and time.</p>`,
+      background: 'linear-gradient(180deg, #775f37 0%, #322413 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        state.flags.batch003_glass_rescue_outcome = 'ignored';
+        state.flags.batch003_glass_rescue_complete = true;
+        state.health = Math.max(1, state.health - 10);
+        state.xp += 14;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_glass_rescue_neutral: {
+      text: `<p>The phased operation lands with moderate losses and keeps rescue lanes viable for follow-on missions.</p>`,
+      background: 'linear-gradient(180deg, #775f37 0%, #322413 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'glass_dunes';
+        state.flags.batch003_glass_rescue_outcome = 'neutral';
+        state.flags.batch003_glass_rescue_complete = true;
+        state.xp += 18;
+        LOCATIONS.glass_dunes.discovered = true;
+      }
+    },
+
+    batch003_ironroot_curse: {
+      text: `<p>A cursed landmark in Ironroot Forest pulses with unstable corruption. Its intensity can be reduced, redirected, or left to worsen based on your intervention.</p>`,
+      background: 'linear-gradient(180deg, #315035 0%, #121f15 100%)',
+      choices: [
+        { text: 'Purge corruption through warding rites', next: 'batch003_ironroot_curse_purged' },
+        { text: 'Contain the curse behind monitored seals', next: 'batch003_ironroot_curse_contained' },
+        { text: 'Leave it active and focus on other fronts', next: 'batch003_ironroot_curse_ignored' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch003_ironroot_curse_touched = true;
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch003_ironroot_curse_purged: {
+      text: `<p>Your rites break the corruption cycle. Local resistance movement improves as hostile pressure drops.</p>`,
+      background: 'linear-gradient(180deg, #3a6140 0%, #182b1d 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch003_ironroot_corruption = 'purged';
+        state.flags.batch003_ironroot_curse_resolved = true;
+        state.xp += 20;
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch003_ironroot_curse_contained: {
+      text: `<p>You establish containment seals and watcher rotations. The curse remains, but escalation is slowed and controlled.</p>`,
+      background: 'linear-gradient(180deg, #3a6140 0%, #182b1d 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch003_ironroot_corruption = 'contained';
+        state.flags.batch003_ironroot_curse_resolved = true;
+        state.gold += 12;
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch003_ironroot_curse_ignored: {
+      text: `<p>You defer intervention. Corruption pressure rises, but command resources remain free for immediate operations elsewhere.</p>`,
+      background: 'linear-gradient(180deg, #3a6140 0%, #182b1d 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'ironroot_forest';
+        state.flags.batch003_ironroot_corruption = 'worsening';
+        state.flags.batch003_ironroot_curse_resolved = true;
+        LOCATIONS.ironroot_forest.discovered = true;
+      }
+    },
+
+    batch003_thornvale_summit: {
+      text: `<p>Thornvale Hinterlands hosts a diplomatic summit where faction delegates negotiate resource rights, corridor security, and command legitimacy.</p>`,
+      background: 'linear-gradient(180deg, #334a33 0%, #141f14 100%)',
+      choices: [
+        { text: 'Broker a practical coalition accord', next: 'batch003_summit_accord' },
+        { text: 'Press a hardline defense compact', next: 'batch003_summit_hardline' },
+        { text: 'Leave negotiations unresolved but open', next: 'batch003_summit_stalemate' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch003_summit_accord: {
+      text: `<p>You secure a working coalition. Future regional conflicts are reduced as shared command protocols take hold.</p>`,
+      background: 'linear-gradient(180deg, #3f5a3f 0%, #1a2a1a 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        state.flags.batch003_summit_outcome = 'accord';
+        state.flags.batch003_conflict_pressure_low = true;
+        state.flags.batch003_conflict_pressure_high = false;
+        state.flags.batch003_conflict_pressure_unstable = false;
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch003_summit_hardline: {
+      text: `<p>You secure strict defense commitments quickly, but some factions feel sidelined and tensions remain brittle.</p>`,
+      background: 'linear-gradient(180deg, #3f5a3f 0%, #1a2a1a 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        state.flags.batch003_summit_outcome = 'hardline';
+        state.flags.batch003_conflict_pressure_low = false;
+        state.flags.batch003_conflict_pressure_high = true;
+        state.flags.batch003_conflict_pressure_unstable = false;
+        state.stats.defense += 1;
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch003_summit_stalemate: {
+      text: `<p>The summit ends without full agreement. Channels stay open, but future conflicts remain volatile and dependent on local commanders.</p>`,
+      background: 'linear-gradient(180deg, #3f5a3f 0%, #1a2a1a 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'thornvale_hinterlands';
+        state.flags.batch003_summit_outcome = 'stalemate';
+        state.flags.batch003_conflict_pressure_low = false;
+        state.flags.batch003_conflict_pressure_high = false;
+        state.flags.batch003_conflict_pressure_unstable = true;
+        LOCATIONS.thornvale_hinterlands.discovered = true;
+      }
+    },
+
+    batch003_wilds_relic_forge: {
+      text: `<p>Whispering Wilds shelters a relic-forging enclave where materials from many operations can be fused into campaign-shaping outputs.</p>`,
+      background: 'linear-gradient(180deg, #2d563a 0%, #132617 100%)',
+      choices: [
+        {
+          text: 'Forge a Dawnroute Sigil (mobility and logistics focus)',
+          next: 'batch003_forge_dawnroute',
+          condition: (state) => state.inventory.includes('old_map') || state.flags.batch003_storm_arc_complete,
+          requirementText: 'Requires map intelligence or completed Stormfang puzzle threads'
+        },
+        {
+          text: 'Forge a Wardheart Seal (defensive coalition focus)',
+          next: 'batch003_forge_wardheart',
+          condition: (state) => state.flags.batch003_summit_outcome === 'accord' || state.flags.batch003_summit_outcome === 'hardline',
+          requirementText: 'Requires a resolved summit doctrine'
+        },
+        { text: 'Stabilize enclave output and return', next: 'batch003_forge_stabilized' },
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch003_forge_dawnroute: {
+      text: `<p>You forge the Dawnroute Sigil, linking route intelligence into faster deployment and cleaner fallback timing.</p>`,
+      background: 'linear-gradient(180deg, #367047 0%, #17311f 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch003_forge_choice = 'dawnroute';
+        state.flags.batch003_relic_forge_complete = true;
+        state.xp += 22;
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch003_forge_wardheart: {
+      text: `<p>You forge the Wardheart Seal, reinforcing coalition shield doctrine and tightening defensive coordination.</p>`,
+      background: 'linear-gradient(180deg, #367047 0%, #17311f 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch003_forge_choice = 'wardheart';
+        state.flags.batch003_relic_forge_complete = true;
+        state.stats.defense += 1;
+        LOCATIONS.whispering_wilds.discovered = true;
+      }
+    },
+
+    batch003_forge_stabilized: {
+      text: `<p>You stabilize enclave workflows and preserve forging capacity for future chapters, even without finalizing a flagship relic path.</p>`,
+      background: 'linear-gradient(180deg, #367047 0%, #17311f 100%)',
+      choices: [
+        { text: 'Return to Batch 003 planning', next: 'batch003_hub' }
+      ],
+      onEnter: (state) => {
+        state.location = 'whispering_wilds';
+        state.flags.batch003_forge_choice = 'stabilized';
+        state.flags.batch003_relic_forge_complete = true;
+        LOCATIONS.whispering_wilds.discovered = true;
       }
     },
 

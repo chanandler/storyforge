@@ -91,6 +91,7 @@ Status: ✅ Implemented in game content and progression flow (elite territory es
 10. Add a multi-stage rescue operation in Thornvale Hinterlands that changes if prior villages were helped or ignored. Supports late-game convergence toward Malachar.
 
 ## Batch 003
+Status: ✅ Implemented in game content and progression flow (Cryptward restoration links, Stormfang puzzle thread arc, Auralis companion branch, Sunken festival intrigue, Ashen smuggler outcomes, Moonlit guardian order support, Glass Dunes rescue variants, Ironroot curse-state resolution, Thornvale summit outcomes, and Whispering Wilds relic-forging enclave paths).
 1. Add a landmark restoration questline in Cryptward Depths that opens new travel links and story scenes after completion. Connects to shard-recovery pacing.
 2. Create a ruins puzzle wing in Stormfang Range where each solved chamber unlocks one thread in a long-form narrative arc. Builds companion backstory continuity.
 3. Add a companion-specific stop in Auralis Ruins that expands character arcs and unlocks alternate story outcomes. Expands faction conflict across chapters.
