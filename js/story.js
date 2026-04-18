@@ -2594,7 +2594,7 @@ const STORY = (() => {
         {
           text: '6️⃣ Diplomatic Summit Venue (Glass Dunes)',
           next: 'batch004_glass_summit',
-          condition: (state) => state.flags.batch004_moonlit_curse_scene_visited,
+          condition: (state) => state.flags.batch004_moonlit_curse_engaged,
           requirementText: 'Requires engaging Moonlit cursed landmark'
         },
         {
@@ -2906,7 +2906,6 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
-        state.flags.batch004_moonlit_curse_scene_visited = true;
         LOCATIONS.moonlit_coast.discovered = true;
       }
     },
@@ -2919,6 +2918,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
+        state.flags.batch004_moonlit_curse_engaged = true;
         state.flags.batch004_moonlit_corruption = 'purged';
         state.flags.batch004_moonlit_curse_resolved = true;
         state.xp += 20;
@@ -2935,6 +2935,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
+        state.flags.batch004_moonlit_curse_engaged = true;
         state.flags.batch004_moonlit_corruption = 'contained';
         state.flags.batch004_moonlit_curse_resolved = true;
         state.gold += 12;
@@ -2951,6 +2952,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
+        state.flags.batch004_moonlit_curse_engaged = true;
         state.flags.batch004_moonlit_corruption = 'worsening';
         state.flags.batch004_moonlit_curse_resolved = true;
         LOCATIONS.moonlit_coast.discovered = true;
