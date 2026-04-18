@@ -130,6 +130,7 @@ Status: ✅ Implemented in game content and progression flow (Auralis rescue out
 10. Add a settlement conflict in Stormfang Range with outcomes that permanently alter nearby locations and vendors. Supports late-game convergence toward Malachar.
 
 ## Batch 006
+Status: ✅ Implemented in game content and progression flow (relic forging, foreshadow outcomes, legend chain, faction outpost, traversal routing, memory-echo activation, settlement conflict, sanctuary defense/rest node, elite territory escalation, and weather-bound event progression).
 1. Add a relic-forging enclave in Sunken Marshes where gathered materials from many locations shape unique story paths. Connects to shard-recovery pacing.
 2. Create a final-act foreshadowing site in Ashen Steppe that reveals different truths depending on previous alliances. Builds companion backstory continuity.
 3. Add a micro-location chain in Moonlit Coast where clues reveal part III of a local legend tied to Crown shard lore. Expands faction conflict across chapters.
@@ -142,6 +143,7 @@ Status: ✅ Implemented in game content and progression flow (Auralis rescue out
 10. Create a weather-bound location event in Auralis Ruins that appears only during certain world states and quest progress. Supports late-game convergence toward Malachar.
 
 ## Batch 007
+Status: ✅ Implemented in game content and progression flow (outpost alignment, traversal outcomes, memory-echo progression, settlement rulings, sanctuary unlock/rest, elite territory escalation, weather-window event, archive recovery, restoration chain, and puzzle-wing completion).
 1. Introduce an NPC faction outpost in Ashen Steppe that unlocks branching quests based on alliance reputation. Connects to shard-recovery pacing.
 2. Create a traversal challenge site in Moonlit Coast that changes route options after major story decisions. Builds companion backstory continuity.
 3. Place a memory-echo landmark in Glass Dunes that reveals backstory scenes when the player carries specific relics. Expands faction conflict across chapters.
@@ -154,6 +156,7 @@ Status: ✅ Implemented in game content and progression flow (Auralis rescue out
 10. Create a ruins puzzle wing in Sunken Marshes where each solved chamber unlocks one thread in a long-form narrative arc. Supports late-game convergence toward Malachar.
 
 ## Batch 008
+Status: ✅ Implemented in game content and progression flow (settlement conflict outcomes, sanctuary defense/rest, elite territory escalation, weather-bound gate, archive recovery, restoration links, puzzle progression, companion stop branching, festival intrigue outcomes, and smuggler route choices).
 1. Add a settlement conflict in Moonlit Coast with outcomes that permanently alter nearby locations and vendors. Connects to shard-recovery pacing.
 2. Design a hidden sanctuary in Glass Dunes that can become a recurring safe hub if protected during an attack event. Builds companion backstory continuity.
 3. Add an elite enemy territory in Ironroot Forest that evolves over chapters and reflects Malachar’s spreading influence. Expands faction conflict across chapters.
@@ -166,6 +169,7 @@ Status: ✅ Implemented in game content and progression flow (Auralis rescue out
 10. Add a smuggler route node in Ashen Steppe with moral choices that ripple into trade access across distant hubs. Supports late-game convergence toward Malachar.
 
 ## Batch 009
+Status: ✅ Implemented in game content and progression flow (weather event gating, archive recovery, restoration links, puzzle progression, companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, and cursed landmark states).
 1. Create a weather-bound location event in Glass Dunes that appears only during certain world states and quest progress. Connects to shard-recovery pacing.
 2. Introduce a lore archive room in Ironroot Forest where recovered texts unlock map markers for future location clusters. Builds companion backstory continuity.
 3. Add a landmark restoration questline in Thornvale Hinterlands that opens new travel links and story scenes after completion. Expands faction conflict across chapters.
@@ -178,6 +182,7 @@ Status: ✅ Implemented in game content and progression flow (Auralis rescue out
 10. Create a cursed landmark in Moonlit Coast whose corruption level rises or falls based on player chapter actions. Supports late-game convergence toward Malachar.
 
 ## Batch 010
+Status: ✅ Implemented in game content and progression flow (puzzle progression, companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, cursed landmark states, summit outcomes, relic forging, and foreshadowing outcomes).
 1. Create a ruins puzzle wing in Ironroot Forest where each solved chamber unlocks one thread in a long-form narrative arc. Connects to shard-recovery pacing.
 2. Add a companion-specific stop in Thornvale Hinterlands that expands character arcs and unlocks alternate story outcomes. Builds companion backstory continuity.
 3. Introduce a local festival location in Whispering Wilds that masks political intrigue and hidden mission entry points. Expands faction conflict across chapters.
