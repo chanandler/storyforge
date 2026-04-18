@@ -260,6 +260,7 @@ Status: ✅ Implemented in game content and progression flow (sanctuary defense/
 10. Design a guardian trial site in Stormfang Range where decisions determine which ancient order supports the player. Supports late-game convergence toward Malachar.
 
 ## Batch 016
+Status: ✅ Implemented in game content and progression flow (archive recovery, restoration links, puzzle progression, companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, cursed landmark states, and summit outcomes).
 1. Introduce a lore archive room in Sunken Marshes where recovered texts unlock map markers for future location clusters. Connects to shard-recovery pacing.
 2. Add a landmark restoration questline in Ashen Steppe that opens new travel links and story scenes after completion. Builds companion backstory continuity.
 3. Create a ruins puzzle wing in Moonlit Coast where each solved chamber unlocks one thread in a long-form narrative arc. Expands faction conflict across chapters.
@@ -272,6 +273,7 @@ Status: ✅ Implemented in game content and progression flow (sanctuary defense/
 10. Introduce a diplomatic summit venue in Auralis Ruins where dialogue outcomes reconfigure future regional conflicts. Supports late-game convergence toward Malachar.
 
 ## Batch 017
+Status: ✅ Implemented in game content and progression flow (companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, cursed landmark states, summit outcomes, relic forging, foreshadow variants, and legend part X chain).
 1. Add a companion-specific stop in Ashen Steppe that expands character arcs and unlocks alternate story outcomes. Connects to shard-recovery pacing.
 2. Introduce a local festival location in Moonlit Coast that masks political intrigue and hidden mission entry points. Builds companion backstory continuity.
 3. Add a smuggler route node in Glass Dunes with moral choices that ripple into trade access across distant hubs. Expands faction conflict across chapters.
@@ -284,6 +286,7 @@ Status: ✅ Implemented in game content and progression flow (sanctuary defense/
 10. Add a micro-location chain in Sunken Marshes where clues reveal part X of a local legend tied to Crown shard lore. Supports late-game convergence toward Malachar.
 
 ## Batch 018
+Status: ✅ Implemented in game content and progression flow (guardian trial doctrine, rescue outcome variants, cursed landmark states, summit outcomes, relic forging, foreshadow variants, legend part VII chain, outpost alignment, traversal routing, and memory-echo activation).
 1. Design a guardian trial site in Moonlit Coast where decisions determine which ancient order supports the player. Connects to shard-recovery pacing.
 2. Add a multi-stage rescue operation in Glass Dunes that changes if prior villages were helped or ignored. Builds companion backstory continuity.
 3. Create a cursed landmark in Ironroot Forest whose corruption level rises or falls based on player chapter actions. Expands faction conflict across chapters.
@@ -296,6 +299,7 @@ Status: ✅ Implemented in game content and progression flow (sanctuary defense/
 10. Place a memory-echo landmark in Ashen Steppe that reveals backstory scenes when the player carries specific relics. Supports late-game convergence toward Malachar.
 
 ## Batch 019
+Status: ✅ Implemented in game content and progression flow (summit outcomes, relic forging, foreshadow variants, legend part IV chain, outpost alignment, traversal routing, memory-echo progression, settlement conflict outcomes, sanctuary defense/rest, and elite territory escalation).
 1. Introduce a diplomatic summit venue in Glass Dunes where dialogue outcomes reconfigure future regional conflicts. Connects to shard-recovery pacing.
 2. Add a relic-forging enclave in Ironroot Forest where gathered materials from many locations shape unique story paths. Builds companion backstory continuity.
 3. Create a final-act foreshadowing site in Thornvale Hinterlands that reveals different truths depending on previous alliances. Expands faction conflict across chapters.
@@ -308,6 +312,7 @@ Status: ✅ Implemented in game content and progression flow (sanctuary defense/
 10. Add an elite enemy territory in Moonlit Coast that evolves over chapters and reflects Malachar’s spreading influence. Supports late-game convergence toward Malachar.
 
 ## Batch 020
+Status: ✅ Implemented in game content and progression flow (legend part I chain, outpost alignment, traversal routing, memory-echo progression, settlement conflict outcomes, sanctuary defense/rest, elite territory escalation, weather-bound event gating, archive recovery, and restoration links).
 1. Add a micro-location chain in Ironroot Forest where clues reveal part I of a local legend tied to Crown shard lore. Connects to shard-recovery pacing.
 2. Introduce an NPC faction outpost in Thornvale Hinterlands that unlocks branching quests based on alliance reputation. Builds companion backstory continuity.
 3. Create a traversal challenge site in Whispering Wilds that changes route options after major story decisions. Expands faction conflict across chapters.
