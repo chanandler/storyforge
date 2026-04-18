@@ -354,6 +354,10 @@ const STORY = (() => {
   });
 
   const BATCH004_LEGEND_MAX_CLUES = 3;
+  const completeBatch004LegendPartIX = (state) => {
+    state.flags.batch004_legend_part_ix_complete = true;
+    LOCATIONS.cryptward_depths.discovered = true;
+  };
 
   // ==================== SCENES ====================
   const SCENES = {
@@ -2653,7 +2657,6 @@ const STORY = (() => {
       onEnter: (state) => {
         state.location = 'stormfang_range';
         state.flags.batch004_storm_intrigue_exposed = true;
-        state.flags.batch004_storm_intrigue_covered = false;
         LOCATIONS.stormfang_range.discovered = true;
         LOCATIONS.auralis_ruins.discovered = true;
       }
@@ -2667,7 +2670,6 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'stormfang_range';
-        state.flags.batch004_storm_intrigue_exposed = false;
         state.flags.batch004_storm_intrigue_covered = true;
         LOCATIONS.stormfang_range.discovered = true;
         LOCATIONS.auralis_ruins.discovered = true;
@@ -3201,8 +3203,7 @@ const STORY = (() => {
         const clues = Math.min(BATCH004_LEGEND_MAX_CLUES, (state.flags.batch004_legend_clues ?? 0) + 1);
         state.flags.batch004_legend_clues = clues;
         if (clues >= BATCH004_LEGEND_MAX_CLUES) {
-          state.flags.batch004_legend_part_ix_complete = true;
-          LOCATIONS.cryptward_depths.discovered = true;
+          completeBatch004LegendPartIX(state);
         }
         LOCATIONS.whispering_wilds.discovered = true;
       }
@@ -3216,9 +3217,8 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'whispering_wilds';
-        state.flags.batch004_legend_part_ix_complete = true;
+        completeBatch004LegendPartIX(state);
         LOCATIONS.whispering_wilds.discovered = true;
-        LOCATIONS.cryptward_depths.discovered = true;
       }
     },
 
