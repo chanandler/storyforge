@@ -117,6 +117,7 @@ Status: ✅ Implemented in game content and progression flow.
 10. Introduce an NPC faction outpost in Cryptward Depths that unlocks branching quests based on alliance reputation. Supports late-game convergence toward Malachar.
 
 ## Batch 005
+Status: ✅ Implemented in game content and progression flow (Auralis rescue outcomes, Sunken corruption-state branch, Ashen summit doctrine, Moonlit forge paths, Glass foreshadow variants, Ironroot legend part VI chain, Thornvale outpost alignment, Whispering Wilds traversal outcomes, Cryptward memory-echo activation/logging, and Stormfang settlement conflict vendor rulings).
 1. Add a multi-stage rescue operation in Auralis Ruins that changes if prior villages were helped or ignored. Connects to shard-recovery pacing.
 2. Create a cursed landmark in Sunken Marshes whose corruption level rises or falls based on player chapter actions. Builds companion backstory continuity.
 3. Introduce a diplomatic summit venue in Ashen Steppe where dialogue outcomes reconfigure future regional conflicts. Expands faction conflict across chapters.
