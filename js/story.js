@@ -3357,8 +3357,8 @@ const STORY = (() => {
         {
           text: '➡️ Advance to Batch 006 operations',
           next: 'batch006_hub',
-          condition: (state) => state.flags.batch005_storm_conflict_complete || state.flags.batch005_memory_echo_complete,
-          requirementText: 'Requires major Batch 005 progress'
+          condition: (state) => state.flags.batch005_storm_conflict_complete,
+          requirementText: 'Requires completing Batch 005 operations'
         },
         { text: '← Return to Batch 004 planning', next: 'batch004_hub' },
         { text: '← Return to core quest planning', next: 'thornvale_prepare' }
@@ -4938,6 +4938,11 @@ const STORY = (() => {
   initializeFrontierNetworkScenes();
 
   function initializeBatch006To010Scenes() {
+    const formatBatchNumber = (num) => String(num).padStart(3, '0');
+    const OPERATION_MARKERS = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+    const BASE_OPERATION_XP = 10;
+    const BASE_OPERATION_GOLD = 6;
+
     const BATCH_CONFIG = [
       {
         number: 6,
@@ -5027,7 +5032,7 @@ const STORY = (() => {
     ];
 
     BATCH_CONFIG.forEach((batch) => {
-      const batchId = `batch${String(batch.number).padStart(3, '0')}`;
+      const batchId = `batch${formatBatchNumber(batch.number)}`;
       const hubId = `${batchId}_hub`;
       const firstLocation = batch.ideas[0].location;
       const choices = batch.ideas.map((idea, index) => {
@@ -5035,36 +5040,41 @@ const STORY = (() => {
         const operationScene = `${batchId}_op${operationNumber}`;
         const previousCompleteFlag = `${batchId}_op${operationNumber - 1}_complete`;
 
-        return {
-          text: `${operationNumber}${operationNumber === 10 ? '️⃣' : '️⃣'} ${idea.title} (${LOCATIONS[idea.location].name})`,
-          next: operationScene,
-          condition: operationNumber === 1 ? null : (state) => state.flags[previousCompleteFlag],
-          requirementText: operationNumber === 1 ? null : `Requires operation ${operationNumber - 1} completion`
+        const operationMarker = OPERATION_MARKERS[operationNumber - 1];
+
+        const baseChoice = {
+          text: `${operationMarker} ${idea.title} (${LOCATIONS[idea.location].name})`,
+          next: operationScene
         };
-      }).map((choice) => {
-        if (!choice.condition) {
-          return { text: choice.text, next: choice.next };
+
+        if (operationNumber === 1) {
+          return baseChoice;
         }
-        return choice;
+
+        return {
+          ...baseChoice,
+          condition: (state) => state.flags[previousCompleteFlag],
+          requirementText: `Requires operation ${operationNumber - 1} completion`
+        };
       });
 
       if (batch.nextHub) {
-        const finalFlag = `${batchId}_op10_complete`;
+        const finalFlag = `${batchId}_op${batch.ideas.length}_complete`;
         choices.push({
-          text: `➡️ Advance to Batch ${String(batch.number + 1).padStart(3, '0')} operations`,
+          text: `➡️ Advance to Batch ${formatBatchNumber(batch.number + 1)} operations`,
           next: batch.nextHub,
           condition: (state) => state.flags[finalFlag],
-          requirementText: `Requires completing Batch ${String(batch.number).padStart(3, '0')}`
+          requirementText: `Requires completing Batch ${formatBatchNumber(batch.number)}`
         });
       }
 
       choices.push(
-        { text: `← Return to Batch ${String(batch.number - 1).padStart(3, '0')} planning`, next: batch.previousHub },
+        { text: `← Return to Batch ${formatBatchNumber(batch.number - 1)} planning`, next: batch.previousHub },
         { text: '← Return to core quest planning', next: 'thornvale_prepare' }
       );
 
       SCENES[hubId] = {
-        text: `<p>Batch ${String(batch.number).padStart(3, '0')} operations are now active. Complete all ten missions to advance campaign pressure and unlock the next wave.</p>
+        text: `<p>Batch ${formatBatchNumber(batch.number)} operations are now active. Complete all ten missions to advance campaign pressure and unlock the next wave.</p>
 <p>Each operation updates location control, progression state, and resistance readiness across Eldermoor.</p>`,
         background: 'linear-gradient(180deg, #33435b 0%, #151b26 100%)',
         choices,
@@ -5088,7 +5098,7 @@ const STORY = (() => {
           background: 'linear-gradient(180deg, #2d3f56 0%, #121b28 100%)',
           choices: [
             { text: '✅ Complete operation objective', next: completeScene },
-            { text: `← Return to Batch ${String(batch.number).padStart(3, '0')} planning`, next: hubId }
+            { text: `← Return to Batch ${formatBatchNumber(batch.number)} planning`, next: hubId }
           ],
           onEnter: (state) => {
             state.location = idea.location;
@@ -5100,7 +5110,7 @@ const STORY = (() => {
           text: `<p>Operation ${operationNumber} complete: ${idea.title} in ${locationName} is now integrated into campaign flow.</p>`,
           background: 'linear-gradient(180deg, #3f5a3f 0%, #1a2b1a 100%)',
           choices: [
-            { text: `Return to Batch ${String(batch.number).padStart(3, '0')} planning`, next: hubId }
+            { text: `Return to Batch ${formatBatchNumber(batch.number)} planning`, next: hubId }
           ],
           onEnter: (state) => {
             state.location = idea.location;
@@ -5109,8 +5119,8 @@ const STORY = (() => {
 
             if (!state.flags[rewardedFlag]) {
               state.flags[rewardedFlag] = true;
-              state.xp += 10 + operationNumber;
-              state.gold += 6 + operationNumber;
+              state.xp += BASE_OPERATION_XP + operationNumber;
+              state.gold += BASE_OPERATION_GOLD + operationNumber;
             }
           }
         };
