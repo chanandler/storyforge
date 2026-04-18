@@ -353,6 +353,8 @@ const STORY = (() => {
     LOCATIONS[location.id] = { name: location.name, icon: location.icon, discovered: false };
   });
 
+  const BATCH004_LEGEND_MAX_CLUES = 3;
+
   // ==================== SCENES ====================
   const SCENES = {
 
@@ -2592,7 +2594,7 @@ const STORY = (() => {
         {
           text: '6️⃣ Diplomatic Summit Venue (Glass Dunes)',
           next: 'batch004_glass_summit',
-          condition: (state) => state.flags.batch004_moonlit_curse_touched,
+          condition: (state) => state.flags.batch004_moonlit_curse_engaged,
           requirementText: 'Requires engaging Moonlit cursed landmark'
         },
         {
@@ -2904,7 +2906,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
-        state.flags.batch004_moonlit_curse_touched = true;
+        state.flags.batch004_moonlit_curse_engaged = true;
         LOCATIONS.moonlit_coast.discovered = true;
       }
     },
@@ -3169,7 +3171,7 @@ const STORY = (() => {
         {
           text: 'Trace the next legend clue site',
           next: 'batch004_wilds_clue_found',
-          condition: (state) => (state.flags.batch004_legend_clues ?? 0) < 3,
+          condition: (state) => (state.flags.batch004_legend_clues ?? 0) < BATCH004_LEGEND_MAX_CLUES,
           requirementText: 'Three clue sites are available'
         },
         {
@@ -3194,9 +3196,9 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'whispering_wilds';
-        const clues = Math.min(3, (state.flags.batch004_legend_clues ?? 0) + 1);
+        const clues = Math.min(BATCH004_LEGEND_MAX_CLUES, (state.flags.batch004_legend_clues ?? 0) + 1);
         state.flags.batch004_legend_clues = clues;
-        if (clues >= 3) {
+        if (clues >= BATCH004_LEGEND_MAX_CLUES) {
           state.flags.batch004_legend_part_ix_complete = true;
           LOCATIONS.cryptward_depths.discovered = true;
         }
