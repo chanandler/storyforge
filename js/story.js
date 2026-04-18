@@ -2594,7 +2594,7 @@ const STORY = (() => {
         {
           text: '6️⃣ Diplomatic Summit Venue (Glass Dunes)',
           next: 'batch004_glass_summit',
-          condition: (state) => state.flags.batch004_moonlit_curse_engaged,
+          condition: (state) => state.flags.batch004_moonlit_curse_scene_visited,
           requirementText: 'Requires engaging Moonlit cursed landmark'
         },
         {
@@ -2906,7 +2906,7 @@ const STORY = (() => {
       ],
       onEnter: (state) => {
         state.location = 'moonlit_coast';
-        state.flags.batch004_moonlit_curse_engaged = true;
+        state.flags.batch004_moonlit_curse_scene_visited = true;
         LOCATIONS.moonlit_coast.discovered = true;
       }
     },
