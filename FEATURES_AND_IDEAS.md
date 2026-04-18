@@ -104,7 +104,7 @@ Status: ✅ Implemented in game content and progression flow (Cryptward restorat
 10. Add a relic-forging enclave in Whispering Wilds where gathered materials from many locations shape unique story paths. Supports late-game convergence toward Malachar.
 
 ## Batch 004
-Status: ✅ Implemented in game content and progression flow (Stormfang festival intrigue, Auralis smuggler outcomes, Sunken guardian trial doctrine, Ashen rescue variants, Moonlit curse-state resolution, Glass summit outcomes, Ironroot relic-forging enclave paths, Thornvale foreshadowing truths, Whispering Wilds legend part IX chain, and Cryptward faction outpost branching).
+Status: ✅ Implemented in game content and progression flow.
 1. Introduce a local festival location in Stormfang Range that masks political intrigue and hidden mission entry points. Connects to shard-recovery pacing.
 2. Add a smuggler route node in Auralis Ruins with moral choices that ripple into trade access across distant hubs. Builds companion backstory continuity.
 3. Design a guardian trial site in Sunken Marshes where decisions determine which ancient order supports the player. Expands faction conflict across chapters.
