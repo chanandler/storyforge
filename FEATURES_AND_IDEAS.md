@@ -325,6 +325,7 @@ Status: ✅ Implemented in game content and progression flow (legend part I chai
 10. Add a landmark restoration questline in Glass Dunes that opens new travel links and story scenes after completion. Supports late-game convergence toward Malachar.
 
 ## Batch 021
+Status: ✅ Implemented in game content and progression flow (memory-echo landmark, settlement conflict outcomes, sanctuary defense/rest, elite territory escalation, weather-bound event gating, archive recovery, restoration links, puzzle progression, companion stop branching, and festival intrigue outcomes).
 1. Place a memory-echo landmark in Thornvale Hinterlands that reveals backstory scenes when the player carries specific relics. Connects to shard-recovery pacing.
 2. Add a settlement conflict in Whispering Wilds with outcomes that permanently alter nearby locations and vendors. Builds companion backstory continuity.
 3. Design a hidden sanctuary in Cryptward Depths that can become a recurring safe hub if protected during an attack event. Expands faction conflict across chapters.
@@ -337,6 +338,7 @@ Status: ✅ Implemented in game content and progression flow (legend part I chai
 10. Introduce a local festival location in Ironroot Forest that masks political intrigue and hidden mission entry points. Supports late-game convergence toward Malachar.
 
 ## Batch 022
+Status: ✅ Implemented in game content and progression flow (elite territory escalation, weather-bound event gating, archive recovery, restoration links, puzzle progression, companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, and rescue outcome variants).
 1. Add an elite enemy territory in Whispering Wilds that evolves over chapters and reflects Malachar’s spreading influence. Connects to shard-recovery pacing.
 2. Create a weather-bound location event in Cryptward Depths that appears only during certain world states and quest progress. Builds companion backstory continuity.
 3. Introduce a lore archive room in Stormfang Range where recovered texts unlock map markers for future location clusters. Expands faction conflict across chapters.
@@ -349,6 +351,7 @@ Status: ✅ Implemented in game content and progression flow (legend part I chai
 10. Add a multi-stage rescue operation in Thornvale Hinterlands that changes if prior villages were helped or ignored. Supports late-game convergence toward Malachar.
 
 ## Batch 023
+Status: ✅ Implemented in game content and progression flow (restoration links, puzzle progression, companion stop branching, festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, cursed landmark states, summit outcomes, and relic-forging enclave paths).
 1. Add a landmark restoration questline in Cryptward Depths that opens new travel links and story scenes after completion. Connects to shard-recovery pacing.
 2. Create a ruins puzzle wing in Stormfang Range where each solved chamber unlocks one thread in a long-form narrative arc. Builds companion backstory continuity.
 3. Add a companion-specific stop in Auralis Ruins that expands character arcs and unlocks alternate story outcomes. Expands faction conflict across chapters.
@@ -361,6 +364,7 @@ Status: ✅ Implemented in game content and progression flow (legend part I chai
 10. Add a relic-forging enclave in Whispering Wilds where gathered materials from many locations shape unique story paths. Supports late-game convergence toward Malachar.
 
 ## Batch 024
+Status: ✅ Implemented in game content and progression flow (festival intrigue outcomes, smuggler route choices, guardian trial doctrine, rescue outcome variants, cursed landmark states, summit outcomes, relic forging, foreshadow variants, legend part IX chain, and outpost alignment).
 1. Introduce a local festival location in Stormfang Range that masks political intrigue and hidden mission entry points. Connects to shard-recovery pacing.
 2. Add a smuggler route node in Auralis Ruins with moral choices that ripple into trade access across distant hubs. Builds companion backstory continuity.
 3. Design a guardian trial site in Sunken Marshes where decisions determine which ancient order supports the player. Expands faction conflict across chapters.
@@ -373,6 +377,7 @@ Status: ✅ Implemented in game content and progression flow (legend part I chai
 10. Introduce an NPC faction outpost in Cryptward Depths that unlocks branching quests based on alliance reputation. Supports late-game convergence toward Malachar.
 
 ## Batch 025
+Status: ✅ Implemented in game content and progression flow (rescue outcome variants, cursed landmark states, summit outcomes, relic forging, foreshadow variants, legend part VI chain, outpost alignment, traversal routing, memory-echo progression, and settlement conflict outcomes).
 1. Add a multi-stage rescue operation in Auralis Ruins that changes if prior villages were helped or ignored. Connects to shard-recovery pacing.
 2. Create a cursed landmark in Sunken Marshes whose corruption level rises or falls based on player chapter actions. Builds companion backstory continuity.
 3. Introduce a diplomatic summit venue in Ashen Steppe where dialogue outcomes reconfigure future regional conflicts. Expands faction conflict across chapters.

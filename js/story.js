@@ -5401,7 +5401,7 @@ const STORY = (() => {
       {
         number: 20,
         previousHub: 'batch019_hub',
-        nextHub: null,
+        nextHub: 'batch021_hub',
         ideas: [
           { title: 'Micro-Location Chain (Legend Part I)', location: 'ironroot_forest' },
           { title: 'NPC Faction Outpost', location: 'thornvale_hinterlands' },
@@ -5515,6 +5515,199 @@ const STORY = (() => {
   }
 
   initializeBatch016To020Scenes();
+
+  function initializeBatch021To025Scenes() {
+    const formatBatchNumber = (num) => String(num).padStart(3, '0');
+    const OPERATION_MARKERS = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+    const BASE_OPERATION_XP = 10;
+    const BASE_OPERATION_GOLD = 6;
+
+    const BATCH_CONFIG = [
+      {
+        number: 21,
+        previousHub: 'batch020_hub',
+        nextHub: 'batch022_hub',
+        ideas: [
+          { title: 'Memory-Echo Landmark', location: 'thornvale_hinterlands' },
+          { title: 'Settlement Conflict', location: 'whispering_wilds' },
+          { title: 'Hidden Sanctuary', location: 'cryptward_depths' },
+          { title: 'Elite Enemy Territory', location: 'stormfang_range' },
+          { title: 'Weather-Bound Location Event', location: 'auralis_ruins' },
+          { title: 'Lore Archive Room', location: 'sunken_marshes' },
+          { title: 'Landmark Restoration Questline', location: 'ashen_steppe' },
+          { title: 'Ruins Puzzle Wing', location: 'moonlit_coast' },
+          { title: 'Companion-Specific Stop', location: 'glass_dunes' },
+          { title: 'Local Festival Intrigue', location: 'ironroot_forest' }
+        ]
+      },
+      {
+        number: 22,
+        previousHub: 'batch021_hub',
+        nextHub: 'batch023_hub',
+        ideas: [
+          { title: 'Elite Enemy Territory', location: 'whispering_wilds' },
+          { title: 'Weather-Bound Location Event', location: 'cryptward_depths' },
+          { title: 'Lore Archive Room', location: 'stormfang_range' },
+          { title: 'Landmark Restoration Questline', location: 'auralis_ruins' },
+          { title: 'Ruins Puzzle Wing', location: 'sunken_marshes' },
+          { title: 'Companion-Specific Stop', location: 'ashen_steppe' },
+          { title: 'Local Festival Intrigue', location: 'moonlit_coast' },
+          { title: 'Smuggler Route Node', location: 'glass_dunes' },
+          { title: 'Guardian Trial Site', location: 'ironroot_forest' },
+          { title: 'Multi-Stage Rescue Operation', location: 'thornvale_hinterlands' }
+        ]
+      },
+      {
+        number: 23,
+        previousHub: 'batch022_hub',
+        nextHub: 'batch024_hub',
+        ideas: [
+          { title: 'Landmark Restoration Questline', location: 'cryptward_depths' },
+          { title: 'Ruins Puzzle Wing', location: 'stormfang_range' },
+          { title: 'Companion-Specific Stop', location: 'auralis_ruins' },
+          { title: 'Local Festival Intrigue', location: 'sunken_marshes' },
+          { title: 'Smuggler Route Node', location: 'ashen_steppe' },
+          { title: 'Guardian Trial Site', location: 'moonlit_coast' },
+          { title: 'Multi-Stage Rescue Operation', location: 'glass_dunes' },
+          { title: 'Cursed Landmark', location: 'ironroot_forest' },
+          { title: 'Diplomatic Summit Venue', location: 'thornvale_hinterlands' },
+          { title: 'Relic-Forging Enclave', location: 'whispering_wilds' }
+        ]
+      },
+      {
+        number: 24,
+        previousHub: 'batch023_hub',
+        nextHub: 'batch025_hub',
+        ideas: [
+          { title: 'Local Festival Intrigue', location: 'stormfang_range' },
+          { title: 'Smuggler Route Node', location: 'auralis_ruins' },
+          { title: 'Guardian Trial Site', location: 'sunken_marshes' },
+          { title: 'Multi-Stage Rescue Operation', location: 'ashen_steppe' },
+          { title: 'Cursed Landmark', location: 'moonlit_coast' },
+          { title: 'Diplomatic Summit Venue', location: 'glass_dunes' },
+          { title: 'Relic-Forging Enclave', location: 'ironroot_forest' },
+          { title: 'Final-Act Foreshadowing Site', location: 'thornvale_hinterlands' },
+          { title: 'Micro-Location Chain (Legend Part IX)', location: 'whispering_wilds' },
+          { title: 'NPC Faction Outpost', location: 'cryptward_depths' }
+        ]
+      },
+      {
+        number: 25,
+        previousHub: 'batch024_hub',
+        nextHub: null,
+        ideas: [
+          { title: 'Multi-Stage Rescue Operation', location: 'auralis_ruins' },
+          { title: 'Cursed Landmark', location: 'sunken_marshes' },
+          { title: 'Diplomatic Summit Venue', location: 'ashen_steppe' },
+          { title: 'Relic-Forging Enclave', location: 'moonlit_coast' },
+          { title: 'Final-Act Foreshadowing Site', location: 'glass_dunes' },
+          { title: 'Micro-Location Chain (Legend Part VI)', location: 'ironroot_forest' },
+          { title: 'NPC Faction Outpost', location: 'thornvale_hinterlands' },
+          { title: 'Traversal Challenge Site', location: 'whispering_wilds' },
+          { title: 'Memory-Echo Landmark', location: 'cryptward_depths' },
+          { title: 'Settlement Conflict', location: 'stormfang_range' }
+        ]
+      }
+    ];
+
+    BATCH_CONFIG.forEach((batch) => {
+      const batchId = `batch${formatBatchNumber(batch.number)}`;
+      const hubId = `${batchId}_hub`;
+      const firstLocation = batch.ideas[0].location;
+      const choices = batch.ideas.map((idea, index) => {
+        const operationNumber = index + 1;
+        const operationScene = `${batchId}_op${operationNumber}`;
+        const previousCompleteFlag = `${batchId}_op${operationNumber - 1}_complete`;
+
+        const operationMarker = OPERATION_MARKERS[operationNumber - 1];
+
+        const baseChoice = {
+          text: `${operationMarker} ${idea.title} (${LOCATIONS[idea.location].name})`,
+          next: operationScene
+        };
+
+        if (operationNumber === 1) {
+          return baseChoice;
+        }
+
+        return {
+          ...baseChoice,
+          condition: (state) => state.flags[previousCompleteFlag],
+          requirementText: `Requires operation ${operationNumber - 1} completion`
+        };
+      });
+
+      if (batch.nextHub) {
+        const finalFlag = `${batchId}_op${batch.ideas.length}_complete`;
+        choices.push({
+          text: `➡️ Advance to Batch ${formatBatchNumber(batch.number + 1)} operations`,
+          next: batch.nextHub,
+          condition: (state) => state.flags[finalFlag],
+          requirementText: `Requires completing Batch ${formatBatchNumber(batch.number)}`
+        });
+      }
+
+      choices.push(
+        { text: `← Return to Batch ${formatBatchNumber(batch.number - 1)} planning`, next: batch.previousHub },
+        { text: '← Return to core quest planning', next: 'thornvale_prepare' }
+      );
+
+      SCENES[hubId] = {
+        text: `<p>Batch ${formatBatchNumber(batch.number)} operations are now active. Complete all ten missions to advance campaign pressure and unlock the next wave.</p>
+<p>Each operation updates location control, progression state, and resistance readiness across Eldermoor.</p>`,
+        background: 'linear-gradient(180deg, #33435b 0%, #151b26 100%)',
+        choices,
+        onEnter: (state) => {
+          state.location = firstLocation;
+          LOCATIONS[firstLocation].discovered = true;
+        }
+      };
+
+      batch.ideas.forEach((idea, index) => {
+        const operationNumber = index + 1;
+        const operationScene = `${batchId}_op${operationNumber}`;
+        const completeScene = `${operationScene}_complete`;
+        const completeFlag = `${batchId}_op${operationNumber}_complete`;
+        const rewardedFlag = `${completeFlag}_rewarded`;
+        const locationName = LOCATIONS[idea.location].name;
+
+        SCENES[operationScene] = {
+          text: `<p><span class="story-emphasis">Operation ${operationNumber}:</span> ${idea.title}</p>
+<p>Deploy to <strong>${locationName}</strong> and complete mission objectives tied to this batch's campaign arc.</p>`,
+          background: 'linear-gradient(180deg, #2d3f56 0%, #121b28 100%)',
+          choices: [
+            { text: '✅ Complete operation objective', next: completeScene },
+            { text: `← Return to Batch ${formatBatchNumber(batch.number)} planning`, next: hubId }
+          ],
+          onEnter: (state) => {
+            state.location = idea.location;
+            LOCATIONS[idea.location].discovered = true;
+          }
+        };
+
+        SCENES[completeScene] = {
+          text: `<p>Operation ${operationNumber} complete: ${idea.title} in ${locationName} is now integrated into campaign flow.</p>`,
+          background: 'linear-gradient(180deg, #3f5a3f 0%, #1a2b1a 100%)',
+          choices: [
+            { text: `Return to Batch ${formatBatchNumber(batch.number)} planning`, next: hubId }
+          ],
+          onEnter: (state) => {
+            state.location = idea.location;
+            state.flags[completeFlag] = true;
+            LOCATIONS[idea.location].discovered = true;
+
+            if (!state.flags[rewardedFlag]) {
+              state.flags[rewardedFlag] = true;
+              state.xp += BASE_OPERATION_XP + operationNumber;
+              state.gold += BASE_OPERATION_GOLD + operationNumber;
+            }
+          }
+        };
+      });
+    });
+  }
+
+  initializeBatch021To025Scenes();
 
   return { ITEMS, ENEMIES, LOCATIONS, SCENES, FRONTIER_CLUSTERS, FRONTIER_LOCATIONS };
 })();
