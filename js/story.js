@@ -290,7 +290,7 @@ const STORY = (() => {
     { id: 'shattered_frontier', name: 'Shattered Frontier', icon: '⛰️', background: 'linear-gradient(180deg, #4a2b23 0%, #1f110e 100%)' },
     { id: 'coastal_veil', name: 'Coastal Veil', icon: '🌊', background: 'linear-gradient(180deg, #1f4254 0%, #0d1d25 100%)' },
     { id: 'high_arcana', name: 'High Arcana', icon: '✨', background: 'linear-gradient(180deg, #3c2a5e 0%, #19112a 100%)' },
-    { id: 'sunken_depths', name: 'Sunken Depths', icon: '⛏️', background: 'linear-gradient(180deg, #2a1f3a 0%, #0f0b16 100%)' },
+    { id: 'sunken_depths', name: 'Sunken Depths', icon: '🕳️', background: 'linear-gradient(180deg, #2a1f3a 0%, #0f0b16 100%)' },
     { id: 'forsaken_plains', name: 'Forsaken Plains', icon: '💀', background: 'linear-gradient(180deg, #3d3120 0%, #19140c 100%)' },
     { id: 'twilight_reaches', name: 'Twilight Reaches', icon: '🌑', background: 'linear-gradient(180deg, #1a2040 0%, #090d1e 100%)' },
     { id: 'ancient_heartlands', name: 'Ancient Heartlands', icon: '🏛️', background: 'linear-gradient(180deg, #3b2e18 0%, #1a1408 100%)' },
@@ -395,7 +395,7 @@ const STORY = (() => {
     { id: 'frontier_stonewarden_barracks', name: 'Stonewarden Barracks', icon: '⚔️', cluster: 'ancient_heartlands', theme: 'original Crown guard barracks repurposed by resistance scouts' },
     { id: 'frontier_covenant_crossroads', name: 'Covenant Crossroads', icon: '⛩️', cluster: 'ancient_heartlands', theme: 'ceremonial junction where four old faction roads still converge' },
     { id: 'frontier_eldermark_vault', name: 'Eldermark Vault', icon: '🔑', cluster: 'ancient_heartlands', theme: 'sealed treasury holding originals of the Crown\'s founding compacts' },
-    { id: 'frontier_hearthstone_plaza', name: 'Hearthstone Plaza', icon: '🪨', cluster: 'ancient_heartlands', theme: 'market plaza whose cornerstone radiates residual binding-magic' },
+    { id: 'frontier_hearthstone_plaza', name: 'Hearthstone Plaza', icon: '🏪', cluster: 'ancient_heartlands', theme: 'market plaza whose cornerstone radiates residual binding-magic' },
 
     { id: 'frontier_stormwall_gate', name: 'Stormwall Gate', icon: '⛈️', cluster: 'storm_peaks', theme: 'storm-lashed gatehouse controlling the sole pass through the high peaks' },
     { id: 'frontier_thundercleft_bridge', name: 'Thundercleft Bridge', icon: '⚡', cluster: 'storm_peaks', theme: 'lightning-struck stone bridge crackling with trapped storm-energy' },
