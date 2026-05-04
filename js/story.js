@@ -289,7 +289,12 @@ const STORY = (() => {
     { id: 'verdant_wilds', name: 'Verdant Wilds', icon: '🌿', background: 'linear-gradient(180deg, #285138 0%, #11261a 100%)' },
     { id: 'shattered_frontier', name: 'Shattered Frontier', icon: '⛰️', background: 'linear-gradient(180deg, #4a2b23 0%, #1f110e 100%)' },
     { id: 'coastal_veil', name: 'Coastal Veil', icon: '🌊', background: 'linear-gradient(180deg, #1f4254 0%, #0d1d25 100%)' },
-    { id: 'high_arcana', name: 'High Arcana', icon: '✨', background: 'linear-gradient(180deg, #3c2a5e 0%, #19112a 100%)' }
+    { id: 'high_arcana', name: 'High Arcana', icon: '✨', background: 'linear-gradient(180deg, #3c2a5e 0%, #19112a 100%)' },
+    { id: 'sunken_depths', name: 'Sunken Depths', icon: '⛏️', background: 'linear-gradient(180deg, #2a1f3a 0%, #0f0b16 100%)' },
+    { id: 'forsaken_plains', name: 'Forsaken Plains', icon: '💀', background: 'linear-gradient(180deg, #3d3120 0%, #19140c 100%)' },
+    { id: 'twilight_reaches', name: 'Twilight Reaches', icon: '🌑', background: 'linear-gradient(180deg, #1a2040 0%, #090d1e 100%)' },
+    { id: 'ancient_heartlands', name: 'Ancient Heartlands', icon: '🏛️', background: 'linear-gradient(180deg, #3b2e18 0%, #1a1408 100%)' },
+    { id: 'storm_peaks', name: 'Storm Peaks', icon: '⛈️', background: 'linear-gradient(180deg, #283040 0%, #101520 100%)' }
   ];
 
   const FRONTIER_LOCATIONS = [
@@ -346,7 +351,62 @@ const STORY = (() => {
     { id: 'frontier_chronicle_terrace', name: 'Chronicle Terrace', icon: '📜', cluster: 'high_arcana', theme: 'scriptorium terraces preserving war annals' },
     { id: 'frontier_starlit_reservoir', name: 'Starlit Reservoir', icon: '🌠', cluster: 'high_arcana', theme: 'mana reservoirs filled by starfall runoff' },
     { id: 'frontier_nullstone_labyrinth', name: 'Nullstone Labyrinth', icon: '🧩', cluster: 'high_arcana', theme: 'anti-magic maze chambers with shifting geometry' },
-    { id: 'frontier_crownward_threshold', name: 'Crownward Threshold', icon: '👑', cluster: 'high_arcana', theme: 'sealed threshold where Crown wards can be reforged' }
+    { id: 'frontier_crownward_threshold', name: 'Crownward Threshold', icon: '👑', cluster: 'high_arcana', theme: 'sealed threshold where Crown wards can be reforged' },
+
+    { id: 'frontier_ashvein_tunnels', name: 'Ashvein Tunnels', icon: '⛏️', cluster: 'sunken_depths', theme: 'mineral-rich mine shafts laced with petrified shard-dust' },
+    { id: 'frontier_rootcore_chasm', name: 'Rootcore Chasm', icon: '🪨', cluster: 'sunken_depths', theme: 'deep rift where ancient root-systems drink from ley-pools' },
+    { id: 'frontier_blackwater_grotto', name: 'Blackwater Grotto', icon: '🖤', cluster: 'sunken_depths', theme: 'submerged cavern networks haunted by echo-wraiths' },
+    { id: 'frontier_crystalbone_vault', name: 'Crystalbone Vault', icon: '💎', cluster: 'sunken_depths', theme: 'ossified chambers where crystal growths encase old soldiers' },
+    { id: 'frontier_duskstone_passage', name: 'Duskstone Passage', icon: '🌘', cluster: 'sunken_depths', theme: 'lightless corridors connecting sunken citadels to the surface' },
+    { id: 'frontier_veinfire_hollow', name: 'Veinfire Hollow', icon: '🔥', cluster: 'sunken_depths', theme: 'geothermal pockets where molten conduits power old ward-engines' },
+    { id: 'frontier_saltpyre_depths', name: 'Saltpyre Depths', icon: '🧂', cluster: 'sunken_depths', theme: 'salt-encrusted lower mines once used for long-term siege storage' },
+    { id: 'frontier_ironmarrow_pit', name: 'Ironmarrow Pit', icon: '⚙️', cluster: 'sunken_depths', theme: 'abandoned forge pits where iron automata still patrol' },
+    { id: 'frontier_underwatch_station', name: 'Underwatch Station', icon: '👁️', cluster: 'sunken_depths', theme: 'deep sentinel posts monitoring seismic shard disturbances' },
+    { id: 'frontier_shatterstone_descent', name: 'Shatterstone Descent', icon: '🪜', cluster: 'sunken_depths', theme: 'collapsed stairways leading to a pre-Crown ruin complex' },
+
+    { id: 'frontier_bonedrift_flats', name: 'Bonedrift Flats', icon: '💀', cluster: 'forsaken_plains', theme: 'salt flats strewn with the remnants of a cursed army\'s march' },
+    { id: 'frontier_wraithwind_moor', name: 'Wraithwind Moor', icon: '🌬️', cluster: 'forsaken_plains', theme: 'windswept moors where soul-winds carry unfinished last words' },
+    { id: 'frontier_ashfield_expanse', name: 'Ashfield Expanse', icon: '🌫️', cluster: 'forsaken_plains', theme: 'grey plains where a catastrophic battle left permanent scorch-marks' },
+    { id: 'frontier_hexcairn_circle', name: 'Hexcairn Circle', icon: '🗿', cluster: 'forsaken_plains', theme: 'standing stones arranged in curse-binding configurations' },
+    { id: 'frontier_blightroot_basin', name: 'Blightroot Basin', icon: '☠️', cluster: 'forsaken_plains', theme: 'poisoned basin where corrupted soil resists all restoration' },
+    { id: 'frontier_greymarsh_hollow', name: 'Greymarsh Hollow', icon: '🌧️', cluster: 'forsaken_plains', theme: 'perpetually rain-soaked hollow sheltering outcast communities' },
+    { id: 'frontier_deadwatch_keep', name: 'Deadwatch Keep', icon: '🏰', cluster: 'forsaken_plains', theme: 'crumbling keep where undead sentinels await orders that never came' },
+    { id: 'frontier_silentbell_village', name: 'Silentbell Village', icon: '🔔', cluster: 'forsaken_plains', theme: 'abandoned settlement frozen in mid-evacuation by a curse' },
+    { id: 'frontier_dustshroud_crossing', name: 'Dustshroud Crossing', icon: '🏜️', cluster: 'forsaken_plains', theme: 'dust-storm corridor where supply caravans disappear without trace' },
+    { id: 'frontier_sorrow_reach', name: 'Sorrow Reach', icon: '🕯️', cluster: 'forsaken_plains', theme: 'memorial road lit by ghost-lanterns honoring those lost in the Sundering' },
+
+    { id: 'frontier_duskbloom_glade', name: 'Duskbloom Glade', icon: '🌙', cluster: 'twilight_reaches', theme: 'bioluminescent groves that only bloom under moonlight' },
+    { id: 'frontier_veilshard_crossing', name: 'Veilshard Crossing', icon: '🔮', cluster: 'twilight_reaches', theme: 'planar fault lines where the veil thins at dusk' },
+    { id: 'frontier_starweave_ridge', name: 'Starweave Ridge', icon: '🌟', cluster: 'twilight_reaches', theme: 'ridgelines where starfall patterns encode lost navigation charts' },
+    { id: 'frontier_shadowvane_spire', name: 'Shadowvane Spire', icon: '🗼', cluster: 'twilight_reaches', theme: 'night-watching tower that casts shadows predicting enemy routes' },
+    { id: 'frontier_nightblood_falls', name: 'Nightblood Falls', icon: '🌑', cluster: 'twilight_reaches', theme: 'dark waterfall whose flow reverses when the Crown is disturbed' },
+    { id: 'frontier_gloomhaven_archive', name: 'Gloomhaven Archive', icon: '📚', cluster: 'twilight_reaches', theme: 'ink-black library preserving forbidden ward-dissolution techniques' },
+    { id: 'frontier_eclipse_plateau', name: 'Eclipse Plateau', icon: '☀️', cluster: 'twilight_reaches', theme: 'high plateau where permanent partial eclipse reveals hidden glyphs' },
+    { id: 'frontier_dawnveil_sanctum', name: 'Dawnveil Sanctum', icon: '🌅', cluster: 'twilight_reaches', theme: 'dawn-lit sanctuary where twilight-cursed souls seek restoration' },
+    { id: 'frontier_halfmoon_bastion', name: 'Halfmoon Bastion', icon: '🌗', cluster: 'twilight_reaches', theme: 'crescent-shaped fortress used as a lunar-cycle observation post' },
+    { id: 'frontier_whispernight_vale', name: 'Whispernight Vale', icon: '🌌', cluster: 'twilight_reaches', theme: 'valley that falls supernaturally silent each night, hiding old war councils' },
+
+    { id: 'frontier_sunstone_amphitheatre', name: 'Sunstone Amphitheatre', icon: '🏛️', cluster: 'ancient_heartlands', theme: 'open-air arena where ancient faction tribunals once settled disputes' },
+    { id: 'frontier_verdant_citadel', name: 'Verdant Citadel', icon: '🏯', cluster: 'ancient_heartlands', theme: 'vine-wrapped citadel maintained as a diplomatic neutral ground' },
+    { id: 'frontier_goldvein_aqueduct', name: 'Goldvein Aqueduct', icon: '💧', cluster: 'ancient_heartlands', theme: 'ancient water channels encoding Crown-era territorial agreements' },
+    { id: 'frontier_ashpath_monument', name: 'Ashpath Monument', icon: '🗽', cluster: 'ancient_heartlands', theme: 'towering memorial marking the original boundary of the realm' },
+    { id: 'frontier_rootpillar_shrine', name: 'Rootpillar Shrine', icon: '🌳', cluster: 'ancient_heartlands', theme: 'living-wood shrine tended by the last surviving elder-grove keepers' },
+    { id: 'frontier_emberhearth_village', name: 'Emberhearth Village', icon: '🏘️', cluster: 'ancient_heartlands', theme: 'founding village whose unbroken lineage holds pre-Sundering records' },
+    { id: 'frontier_stonewarden_barracks', name: 'Stonewarden Barracks', icon: '⚔️', cluster: 'ancient_heartlands', theme: 'original Crown guard barracks repurposed by resistance scouts' },
+    { id: 'frontier_covenant_crossroads', name: 'Covenant Crossroads', icon: '⛩️', cluster: 'ancient_heartlands', theme: 'ceremonial junction where four old faction roads still converge' },
+    { id: 'frontier_eldermark_vault', name: 'Eldermark Vault', icon: '🔑', cluster: 'ancient_heartlands', theme: 'sealed treasury holding originals of the Crown\'s founding compacts' },
+    { id: 'frontier_hearthstone_plaza', name: 'Hearthstone Plaza', icon: '🪨', cluster: 'ancient_heartlands', theme: 'market plaza whose cornerstone radiates residual binding-magic' },
+
+    { id: 'frontier_stormwall_gate', name: 'Stormwall Gate', icon: '⛈️', cluster: 'storm_peaks', theme: 'storm-lashed gatehouse controlling the sole pass through the high peaks' },
+    { id: 'frontier_thundercleft_bridge', name: 'Thundercleft Bridge', icon: '⚡', cluster: 'storm_peaks', theme: 'lightning-struck stone bridge crackling with trapped storm-energy' },
+    { id: 'frontier_galewatch_outpost', name: 'Galewatch Outpost', icon: '🌪️', cluster: 'storm_peaks', theme: 'weather-station outpost tracking shard-storm migration patterns' },
+    { id: 'frontier_strikecrown_summit', name: 'Strikecrown Summit', icon: '🏔️', cluster: 'storm_peaks', theme: 'peak where lightning perpetually crowns a buried ward-anchor' },
+    { id: 'frontier_cloudspire_roost', name: 'Cloudspire Roost', icon: '🦅', cluster: 'storm_peaks', theme: 'storm-eagle nesting spires used as aerial scout relay stations' },
+    { id: 'frontier_howling_col', name: 'Howling Col', icon: '🌬️', cluster: 'storm_peaks', theme: 'wind-funnel col whose acoustics carry messages across the range' },
+    { id: 'frontier_frostfire_ridge', name: 'Frostfire Ridge', icon: '❄️', cluster: 'storm_peaks', theme: 'ridge where ice storms and volcanic vents collide into unstable terrain' },
+    { id: 'frontier_boltstone_quarry', name: 'Boltstone Quarry', icon: '🪨', cluster: 'storm_peaks', theme: 'quarry of lightning-fused stone prized for ward-construction' },
+    { id: 'frontier_stormcaller_shrine', name: 'Stormcaller Shrine', icon: '🙏', cluster: 'storm_peaks', theme: 'mountain shrine where weather-mages once petitioned storm-spirits' },
+    { id: 'frontier_cloudbreach_descent', name: 'Cloudbreach Descent', icon: '🌩️', cluster: 'storm_peaks', theme: 'steep descent through permanent cloud cover hiding a lost supply cache' }
   ];
 
   FRONTIER_LOCATIONS.forEach((location) => {
