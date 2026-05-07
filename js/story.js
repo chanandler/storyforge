@@ -8604,6 +8604,521 @@ const STORY = (() => {
   }
   initializeBatch096To100Scenes();
 
+  // ==================== NORTHERN REACH — FULL SCENES ====================
+  // Overrides the generic frontier stubs with rich narrative content for all
+  // 10 Northern Reach frontier locations.
+  function initializeNorthernReachScenes() {
+    const NR_BG = 'linear-gradient(180deg, #2c3e5f 0%, #141d2f 100%)';
+    const NR_BG_BRIGHT = 'linear-gradient(180deg, #3a5070 0%, #1c2d44 100%)';
+    const CLUSTER_HUB = 'batch003_cluster_northern_reach';
+    const FRONTIER_HUB = 'batch003_frontier_hub';
+
+    function discoverNR(state, locationId) {
+      state.location = locationId;
+      state.flags[`frontier_discovered_${locationId}`] = true;
+      LOCATIONS[locationId].discovered = true;
+    }
+
+    function firstVisitReward(state, locationId, xp, gold) {
+      const rewardFlag = `frontier_site_secured_${locationId}`;
+      if (!state.flags[rewardFlag]) {
+        state.flags[rewardFlag] = true;
+        state.xp += xp;
+        state.gold += gold;
+      }
+    }
+
+    // ── 1. FROSTMERE EXPANSE ──────────────────────────────────────────────
+    const FROSTMERE = 'frontier_frostmere_expanse';
+    SCENES[`frontier_site_${FROSTMERE}`] = {
+      text: `<p>The Frostmere Expanse stretches before you — a broad trade road locked beneath a metre of blue ice. Ancient ward-stones line both shoulders of the road, only their carved crowns visible, the rest swallowed by frost.</p>
+<p>Resistance scouts say these ward-stones once broadcast safe-passage signals across the entire northern corridor. Malachar's forces haven't found them yet, but that window is closing.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '⛏️ Excavate the ward-stones and attempt to reactivate them', next: 'nr_frostmere_excavate' },
+        { text: '🛷 Clear the ice from the trade road to reopen supply lines', next: 'nr_frostmere_road' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, FROSTMERE);
+      }
+    };
+
+    SCENES.nr_frostmere_excavate = {
+      text: `<p>Three hours of careful chipping frees the nearest ward-stone. The carved glyph blazes to life the instant the ice falls away, and a cascade of resonance ripples down the road as neighbouring stones answer the signal.</p>
+<p>The ward-network projects a lattice of pale blue light above the road — a mapped corridor of every old relay station between here and the high peaks. Locations that resistance scouts have never charted are suddenly visible.</p>
+<p><span class="story-action">Ward-stone network reactivated. Northern corridor routes revealed. +20 XP, +10 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Copy the relay map and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, FROSTMERE);
+        state.flags.nr_frostmere_stones_excavated = true;
+        firstVisitReward(state, FROSTMERE, 20, 10);
+      }
+    };
+
+    SCENES.nr_frostmere_road = {
+      text: `<p>You redirect a pair of resistance work-crews to chip and salt the frozen roadway. By nightfall the first supply sledge passes through — a dozen crates of dried provisions headed south.</p>
+<p>The caravan master presses a purse into your hand. <span class="story-dialogue">"First successful run in three weeks. You've our thanks."</span></p>
+<p><span class="story-action">Frostmere trade road reopened. Northern supply lines restored. +12 XP, +25 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Accept payment and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, FROSTMERE);
+        state.flags.nr_frostmere_road_cleared = true;
+        firstVisitReward(state, FROSTMERE, 12, 25);
+      }
+    };
+
+    // ── 2. AURORA CLIFFS ──────────────────────────────────────────────────
+    const AURORA = 'frontier_aurora_cliffs';
+    SCENES[`frontier_site_${AURORA}`] = {
+      text: `<p>The Aurora Cliffs glow with banded light — green, violet, white — emanating from mineral seams within the rock face. A narrow path cuts across the cliff face, barely wide enough for two abreast.</p>
+<p>Above, circling silhouettes mark the sky-hunters: nomadic aerial scouts who nest in the high crags and claim the cliffs as sovereign territory. They have not attacked — yet — but several arrows have been planted in the path ahead as a warning.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '🌌 Signal the sky-hunters and attempt to negotiate passage', next: 'nr_aurora_negotiate' },
+        { text: '🌑 Wait for darkness and move quickly along the cliff path', next: 'nr_aurora_sneak' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, AURORA);
+      }
+    };
+
+    SCENES.nr_aurora_negotiate = {
+      text: `<p>You plant your sword in the rock and raise both empty hands. After a long silence, a sky-hunter descends on the back of a great snow-eagle, regarding you with sharp amber eyes.</p>
+<p>Their language is clicks and gestures, but the intention is clear: they want proof you are not Malachar's vanguard. You show the Crown shard, and its warm light draws a sharp intake of breath from the hunter.</p>
+<p><span class="story-dialogue">"Crown-bearer,"</span> they say in halting common. <span class="story-dialogue">"We watch the northern roads. Come — we share what we have seen."</span></p>
+<p><span class="story-action">Sky-hunters allied. Aerial scouting network unlocked. +20 XP, +15 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Accept the alliance and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, AURORA);
+        state.flags.nr_aurora_hunters_allied = true;
+        firstVisitReward(state, AURORA, 20, 15);
+      }
+    };
+
+    SCENES.nr_aurora_sneak = {
+      text: `<p>Under a moonless sky, the cliff path glows softly with its own mineral light — enough to navigate by, not enough to be seen from above. You move in silence, pressing tight against the cold rock face.</p>
+<p>At the midpoint of the trail you find a carved alcove: a sky-hunter waystation. Inside, a bronze shard-compass rests on a fur-wrapped shelf, abandoned in haste. It points unerringly toward the nearest Crown resonance source.</p>
+<p><span class="story-action">Cliff path traversed. Shard-compass recovered. +15 XP, +20 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Pocket the compass and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, AURORA);
+        state.flags.nr_aurora_path_cleared = true;
+        firstVisitReward(state, AURORA, 15, 20);
+      }
+    };
+
+    // ── 3. WOLFSGRIN PASS ─────────────────────────────────────────────────
+    const WOLFSGRIN = 'frontier_wolfsgrin_pass';
+    SCENES[`frontier_site_${WOLFSGRIN}`] = {
+      text: `<p>Wolfsgrin Pass earns its name. The wind moans through narrow rock channels in a pitch that sounds uncomfortably like a pack in full cry. Three overturned supply carts lie on the road, one still smouldering.</p>
+<p>Every caravan to attempt the pass at dusk has simply vanished. No bodies, no tracks beyond the ambush point. The locals whisper about frost-wraiths that ride the howling air.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '🔍 Investigate the wreckage for clues before dusk arrives', next: 'nr_wolfsgrin_investigate' },
+        { text: '🌅 Camp until dawn and cross in full daylight', next: 'nr_wolfsgrin_dawn' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WOLFSGRIN);
+      }
+    };
+
+    SCENES.nr_wolfsgrin_investigate = {
+      text: `<p>The wagon tracks end at a boulder too large to have moved on its own — but fresh claw gouges show it did. Behind it: a crevice dropping into a hollow beneath the pass floor, where frightened merchants huddle around a dying torch.</p>
+<p>The frost-wraiths are real, but not supernatural: they are corrupted ice-elementals drawn to the warmth of travellers at dusk. You negotiate a temporary ward-fire line and help the survivors to safety.</p>
+<p><span class="story-action">Survivors rescued. Wraith hunting ground disrupted. +18 XP, +20 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Mark the safe route and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WOLFSGRIN);
+        state.flags.nr_wolfsgrin_wraiths_handled = true;
+        firstVisitReward(state, WOLFSGRIN, 18, 20);
+      }
+    };
+
+    SCENES.nr_wolfsgrin_dawn = {
+      text: `<p>You make camp behind a windbreak of stacked stone and wait out the long northern night. Dawn arrives in a slow blaze of orange and the pass falls quiet — the ice-elementals retreat with the dark.</p>
+<p>In the full light you spot what the caravans missed: a buried cache beneath a flat marker stone, left by a ranger patrol that never returned. Inside: preserved rations, a sealed map tube, and a pouch of northern trade-silver.</p>
+<p><span class="story-action">Dawn cache recovered. Pass marked as daylight-only route. +12 XP, +30 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Take the cache and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WOLFSGRIN);
+        state.flags.nr_wolfsgrin_dawn_cache = true;
+        firstVisitReward(state, WOLFSGRIN, 12, 30);
+      }
+    };
+
+    // ── 4. STARFALL TARN ──────────────────────────────────────────────────
+    const STARFALL = 'frontier_starfall_tarn';
+    SCENES[`frontier_site_${STARFALL}`] = {
+      text: `<p>The Starfall Tarn occupies a crater that must be centuries old. Its water is dark and perfectly still, yet beneath the surface something pulses with warm amber light — the same colour as a Crown shard.</p>
+<p>Chunks of meteorite ring the shore, each one humming at a different pitch. When you draw your own shard close, the resonance from the tarn surges unmistakably.</p>`,
+      background: NR_BG,
+      choices: [
+        {
+          text: '💎 Attune your Crown shard to the tarn\'s resonance',
+          next: 'nr_starfall_attune',
+          condition: (state) => state.inventory.some(id => id.startsWith('shard_')),
+          requirementText: 'Requires a Crown Shard'
+        },
+        { text: '☄️ Collect meteorite fragments from the shoreline', next: 'nr_starfall_collect' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, STARFALL);
+      }
+    };
+
+    SCENES.nr_starfall_attune = {
+      text: `<p>You wade to knee-depth and hold the shard beneath the surface. The tarn responds instantly — amber light swirls up around your arm, threading through the crystal in patterns you have never seen.</p>
+<p>A vision surfaces: a route between the tarn, a buried relay node to the east, and the chamber where one of the missing shards was carried after the Crown's shattering. The path is not safe — but it is clear.</p>
+<p><span class="story-action">Shard attuned to tarn resonance. Shard route vision gained. +25 XP, +10 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Commit the vision to memory and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, STARFALL);
+        state.flags.nr_starfall_shard_attuned = true;
+        firstVisitReward(state, STARFALL, 25, 10);
+      }
+    };
+
+    SCENES.nr_starfall_collect = {
+      text: `<p>The shoreline meteorites crumble at the edges where centuries of frost have worked into their grain. You chip out a dozen usable fragments — dense, warm to the touch despite the cold, and faintly luminous even away from the water.</p>
+<p>A hedge-smith in the resistance camps will pay handsomely for celestial iron. It takes enchantment better than anything forged from earthly ore.</p>
+<p><span class="story-action">Meteorite fragments collected. Celestial iron cache secured. +15 XP, +35 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Pack the fragments and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, STARFALL);
+        state.flags.nr_starfall_fragments_collected = true;
+        firstVisitReward(state, STARFALL, 15, 35);
+      }
+    };
+
+    // ── 5. RIMEWATCH BASTION ──────────────────────────────────────────────
+    const RIMEWATCH = 'frontier_rimewatch_bastion';
+    SCENES[`frontier_site_${RIMEWATCH}`] = {
+      text: `<p>The Rimewatch Bastion was the last fortress built before the northern frontier was abandoned. Its walls are intact — thick stone sheathed in frost, but holding. The garrison flag still flies, stiff and white as bone in the wind.</p>
+<p>Inside, the soldiers are long gone. What remains: empty barracks, a sealed armory, and in the courtyard, a cluster of warg-sized tracks in the snow that are not yet an hour old.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '🛡️ Clear the bastion and establish a resistance outpost', next: 'nr_rimewatch_clear' },
+        { text: '📦 Break into the armory and extract emergency supplies', next: 'nr_rimewatch_supply' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, RIMEWATCH);
+      }
+    };
+
+    SCENES.nr_rimewatch_clear = {
+      text: `<p>The wargs are in the lower barracks — three of them, lean and vicious. You drive them out through the rear gate with torchlight and a lot of noise, then drop the iron portcullis behind them.</p>
+<p>A scout team from the Thornvale resistance arrives within the day; word travels fast when a fortified position opens up. By nightfall the bastion is flying resistance colours and a fire is burning in the great hearth for the first time in years.</p>
+<p><span class="story-action">Rimewatch Bastion secured. Northern outpost established. +22 XP, +15 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Leave the garrison in good hands and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        const rimewatchClearReward = `frontier_site_secured_${RIMEWATCH}`;
+        const isFirstClearVisit = !state.flags[rimewatchClearReward];
+        discoverNR(state, RIMEWATCH);
+        state.flags.nr_rimewatch_outpost_established = true;
+        firstVisitReward(state, RIMEWATCH, 22, 15);
+        if (isFirstClearVisit) {
+          state.inventory.push('health_potion');
+        }
+      }
+    };
+
+    SCENES.nr_rimewatch_supply = {
+      text: `<p>The armory lock yields to your lockpick — or to the butt of your sword; the latch is half-rusted through. Inside: racks of crossbow bolts still oiled, sealed barrels of hardtack and salt-pork, and a crate of alchemical supplies including several intact health potions.</p>
+<p>You move quickly before the wargs return, packing out as much as two people can carry. The rest you cache and mark on your map.</p>
+<p><span class="story-action">Armory raided. Emergency supplies recovered. +15 XP, +25 Gold, +Health Potion.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Take what you can carry and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        const rimewatchSupplyReward = `frontier_site_secured_${RIMEWATCH}`;
+        const isFirstSupplyVisit = !state.flags[rimewatchSupplyReward];
+        discoverNR(state, RIMEWATCH);
+        state.flags.nr_rimewatch_supplies_secured = true;
+        firstVisitReward(state, RIMEWATCH, 15, 25);
+        if (isFirstSupplyVisit) {
+          state.inventory.push('health_potion');
+        }
+      }
+    };
+
+    // ── 6. SILVERPINE HOLLOW ──────────────────────────────────────────────
+    const SILVERPINE = 'frontier_silverpine_hollow';
+    SCENES[`frontier_site_${SILVERPINE}`] = {
+      text: `<p>The Silverpine Hollow fills the air with a sharp, clean scent. The trees grow close, their grey-silver bark chalked with old trail markings — a carved crow here, a notched arrow there — the secret language of the King's Watch ranger network.</p>
+<p>Somewhere in this wood are relay caches: weatherproof boxes of supplies, maps, and coded messages, buried when the Watch abandoned the north. No one has retrieved them. No one has tried.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '🗺️ Follow every trail marker and recover the full cache network', next: 'nr_silverpine_full' },
+        { text: '⚡ Head straight for the largest cache marker and extract quickly', next: 'nr_silverpine_quick' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, SILVERPINE);
+      }
+    };
+
+    SCENES.nr_silverpine_full = {
+      text: `<p>Half a day of careful navigation brings you to seven separate caches. The last — buried at the base of the oldest pine in the hollow — contains a leather-bound operational journal detailing every resistance safe-house between Thornvale and the northern peak range.</p>
+<p>The ranger network was more extensive than anyone realized. With this journal, the resistance can rebuild a functional courier chain through the north.</p>
+<p><span class="story-action">Full cache network recovered. Ranger relay network restored. +22 XP, +30 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Carry the journal back to camp and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        const silverFullReward = `frontier_site_secured_${SILVERPINE}`;
+        const isFirstFullVisit = !state.flags[silverFullReward];
+        discoverNR(state, SILVERPINE);
+        state.flags.nr_silverpine_network_restored = true;
+        firstVisitReward(state, SILVERPINE, 22, 30);
+        if (isFirstFullVisit) {
+          state.inventory.push('mana_potion');
+        }
+      }
+    };
+
+    SCENES.nr_silverpine_quick = {
+      text: `<p>The largest cache marker — a crow carved at eye height into a silver-barked pine — leads you to a clearing where a tin box the size of a travelling trunk sits half-buried in pine needles.</p>
+<p>Inside: trade silver, a coiled rope, a waterproofed map of the next ten leagues, and two stoppered flasks of mana-restore draught. More than enough to make the trip worthwhile.</p>
+<p><span class="story-action">Primary cache recovered. Resources and map secured. +14 XP, +20 Gold, +Mana Potion.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Take the cache and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        const silverQuickReward = `frontier_site_secured_${SILVERPINE}`;
+        const isFirstQuickVisit = !state.flags[silverQuickReward];
+        discoverNR(state, SILVERPINE);
+        state.flags.nr_silverpine_cache_recovered = true;
+        firstVisitReward(state, SILVERPINE, 14, 20);
+        if (isFirstQuickVisit) {
+          state.inventory.push('mana_potion');
+        }
+      }
+    };
+
+    // ── 7. SKYFORGE LEDGE ─────────────────────────────────────────────────
+    const SKYFORGE = 'frontier_skyforge_ledge';
+    SCENES[`frontier_site_${SKYFORGE}`] = {
+      text: `<p>The Skyforge Ledge is a wide shelf of rock jutting from the cliff face at a height where the wind screams constantly. Ancient bellows — stone, not wood — still direct geothermal air through vents beneath the forging slabs. The fires are hot enough to melt iron without a single piece of fuel.</p>
+<p>The forge has not been used in decades. The tools are still here, as are the quench tanks, now filled with ice that will melt in minutes once the vents are opened.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '⚒️ Open the vents and use the dragonfire forge to enhance your equipment', next: 'nr_skyforge_forge' },
+        { text: '🔒 Seal the vents permanently — deny the forge to Malachar\'s forces', next: 'nr_skyforge_seal' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, SKYFORGE);
+      }
+    };
+
+    SCENES.nr_skyforge_forge = {
+      text: `<p>The vents roar open and the ledge floods with superheated air. Working quickly before the forge cools — it will not stay at temperature long without a smith who knows these tools — you reheat your blade and work out the micro-fractures that combat has left along its edge.</p>
+<p>The result is noticeably sharper, the metal darker and denser. You also find a small cache of masterwork components left by the last smith: useful for future weapon work.</p>
+<p><span class="story-action">Skyforge used. Weapon edge improved. +16 XP, +20 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Close the vents behind you and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, SKYFORGE);
+        state.flags.nr_skyforge_forge_used = true;
+        firstVisitReward(state, SKYFORGE, 16, 20);
+        state.stats.attack += 1;
+      }
+    };
+
+    SCENES.nr_skyforge_seal = {
+      text: `<p>The vent controls are a series of iron levers corroded into their open positions. It takes three hours and a length of piton-driven iron wedge-work to seal them permanently. When the last vent closes, the ledge goes cold and silent.</p>
+<p>Malachar's artificers had already sent a survey party — their notes, abandoned when they heard you coming, lay beside the quench tanks. The forge would have been a significant asset. Not any more.</p>
+<p><span class="story-action">Skyforge vents sealed. Enemy forge denied. +20 XP, +15 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Take the enemy survey notes and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, SKYFORGE);
+        state.flags.nr_skyforge_vents_sealed = true;
+        firstVisitReward(state, SKYFORGE, 20, 15);
+      }
+    };
+
+    // ── 8. GLACIAL ECHO CAVERN ────────────────────────────────────────────
+    const GLACIAL = 'frontier_glacial_echo_cavern';
+    SCENES[`frontier_site_${GLACIAL}`] = {
+      text: `<p>The cavern mouth exhales cold breath even at midday. Inside, the ice walls are translucent blue-white, and within them — movement. Shapes. When you listen closely, you hear voices: shouted orders, clashing steel, a woman calling a name you do not recognize. Echoes of battles fought inside these tunnels, sealed within the ice for generations.</p>
+<p>The echoes cycle. Some are recent — within the last year. Malachar's forces passed through here, and the ice remembers.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '👂 Listen carefully to the echoes for tactical intelligence', next: 'nr_glacial_listen' },
+        { text: '🧊 Follow the newest echoes deeper into the cavern', next: 'nr_glacial_follow' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, GLACIAL);
+      }
+    };
+
+    SCENES.nr_glacial_listen = {
+      text: `<p>An hour of patient listening yields a remarkable amount. Malachar's supply train passed through three months ago — a specific tally of wagons, a destination in the high peaks, and a heated argument about a "sealed shard node" east of the tarn. The node's location is now etched in your memory.</p>
+<p>The ice gives up its secrets grudgingly, but it gives them.</p>
+<p><span class="story-action">Tactical echoes decoded. Enemy supply route and shard node location identified. +22 XP, +12 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Commit the intelligence to paper and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, GLACIAL);
+        state.flags.nr_glacial_intel_recovered = true;
+        firstVisitReward(state, GLACIAL, 22, 12);
+      }
+    };
+
+    SCENES.nr_glacial_follow = {
+      text: `<p>The newest echoes lead inward and downward, through narrowing passages where the ceiling brushes your head. The voices grow louder — and then abruptly stop at a chamber where the ice floor has been recently broken and re-frozen.</p>
+<p>Beneath the surface: a sealed iron chest, the kind used by the King's Watch for courier-grade cargo. Inside are coded dispatches and a rolled canvas — a partial map of the shard dispersal routes drawn from memory by someone who was there when the Crown broke.</p>
+<p><span class="story-action">War cache discovered. Shard dispersal map recovered. +25 XP, +20 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Secure the map and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, GLACIAL);
+        state.flags.nr_glacial_cache_found = true;
+        firstVisitReward(state, GLACIAL, 25, 20);
+      }
+    };
+
+    // ── 9. WINTERGATE STAIRS ──────────────────────────────────────────────
+    const WINTERGATE = 'frontier_wintergate_stairs';
+    SCENES[`frontier_site_${WINTERGATE}`] = {
+      text: `<p>The Wintergate Stairs carve twelve hundred steps directly into the cliff face connecting two fortified valleys. At the top, a handful of resistance irregulars hold a watchtower. At the bottom, a garrison of unknown allegiance occupies an older citadel — their banner is a local lord's sigil, not Malachar's, but they have not responded to signals.</p>
+<p>Control of the stairs means unimpeded movement between both valleys. Right now, neither side fully controls them.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '⚔️ Secure the stairs by force and fortify both ends', next: 'nr_wintergate_secure' },
+        { text: '🤝 Approach the lower citadel garrison under a flag of parley', next: 'nr_wintergate_negotiate' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WINTERGATE);
+      }
+    };
+
+    SCENES.nr_wintergate_secure = {
+      text: `<p>The lower garrison retreats when they see the resistance standard and the size of your scouting party. They are mercenaries, not believers — their contract does not include dying for a staircase. They take their coin and leave.</p>
+<p>Resistance fighters picket both ends by morning. The stairs are now the fastest route between the northern valleys, and they belong to your side.</p>
+<p><span class="story-action">Wintergate Stairs secured. Northern valley link established. +18 XP, +18 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Leave a guard rotation in place and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WINTERGATE);
+        state.flags.nr_wintergate_secured = true;
+        firstVisitReward(state, WINTERGATE, 18, 18);
+      }
+    };
+
+    SCENES.nr_wintergate_negotiate = {
+      text: `<p>The garrison commander is a grizzled woman named Aldis who fought in the last border war before Malachar's rise. She has kept her people alive through careful neutrality — but she has no love for the court wizard who shattered the peace she fought for.</p>
+<p>You show her the Crown shard. She stares at it for a long moment.</p>
+<p><span class="story-dialogue">"My contract expired a month ago,"</span> she says quietly. <span class="story-dialogue">"I've been waiting for someone worth fighting for."</span></p>
+<p><span class="story-action">Garrison allied with the resistance. Wintergate Stairs secured by treaty. +22 XP, +30 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Welcome Aldis to the resistance and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, WINTERGATE);
+        state.flags.nr_wintergate_garrison_allied = true;
+        firstVisitReward(state, WINTERGATE, 22, 30);
+      }
+    };
+
+    // ── 10. PALE COMET FIELDS ─────────────────────────────────────────────
+    const COMET = 'frontier_pale_comet_fields';
+    SCENES[`frontier_site_${COMET}`] = {
+      text: `<p>The Pale Comet Fields occupy a vast flat expanse of frost-hardened soil pocked with dozens of impact craters, each holding a fragment of luminous celestial iron. The largest craters glow pale silver even in daylight, casting long shadows across the snow.</p>
+<p>The field hums when you step into it — not from the fragments alone, but from the pattern they form. Someone mapped this before the Sundering. The craters are not random: they mark a geometric survey grid tied to Crown-era navigation magic.</p>`,
+      background: NR_BG,
+      choices: [
+        { text: '✨ Attune to the field\'s resonance and decode the navigation grid', next: 'nr_comet_attune' },
+        { text: '⛏️ Gather the celestial iron fragments from the craters', next: 'nr_comet_gather' },
+        { text: '← Return to Northern Reach operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, COMET);
+      }
+    };
+
+    SCENES.nr_comet_attune = {
+      text: `<p>Standing at the geometric centre of the grid, you hold your Crown shard out and let the field speak. The resonance is a navigational chart: each fragment is a waypoint, and the pattern they form traces the path the shards took after the Crown shattered.</p>
+<p>Two of the five shards passed through the Northern Reach. This field recorded their passage like ink in parchment. The routes are not complete — but they narrow the search considerably.</p>
+<p><span class="story-action">Navigation grid decoded. Shard passage routes mapped. +25 XP, +12 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Record the routes and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, COMET);
+        state.flags.nr_comet_field_mapped = true;
+        firstVisitReward(state, COMET, 25, 12);
+      }
+    };
+
+    SCENES.nr_comet_gather = {
+      text: `<p>The celestial iron fragments break free of the soil with a satisfying ringing sound. Each one is light for its size and retains warmth even in the biting cold — properties that make it prized for weapon-tempering and ward-inscription alike.</p>
+<p>Two hours of harvest fills your pack with enough material to keep a resistance smith busy for a week. The remaining craters hold more for future trips.</p>
+<p><span class="story-action">Celestial iron gathered. Forge materials secured for the resistance. +15 XP, +40 Gold.</span></p>`,
+      background: NR_BG_BRIGHT,
+      choices: [
+        { text: 'Return to operations with your haul', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverNR(state, COMET);
+        state.flags.nr_comet_fragments_gathered = true;
+        firstVisitReward(state, COMET, 15, 40);
+      }
+    };
+  }
+
+  initializeNorthernReachScenes();
+
 
   return { ITEMS, ENEMIES, LOCATIONS, SCENES, FRONTIER_CLUSTERS, FRONTIER_LOCATIONS };
 })();
