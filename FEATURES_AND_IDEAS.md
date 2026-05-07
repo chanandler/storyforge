@@ -5,7 +5,7 @@ Goal alignment: 100 batches × 10 ideas (1,000 total), each designed to expand l
 ## Expanded Location Pool (Now Includes 50 New Frontier Locations)
 Use the full expanded pool below when drafting or implementing future ideas so location rotation is no longer limited to the original frontier set.
 
-### Northern Reach
+### Northern Reach ✅ Implemented (full narrative scenes)
 - Frostmere Expanse
 - Aurora Cliffs
 - Wolfsgrin Pass
@@ -17,7 +17,7 @@ Use the full expanded pool below when drafting or implementing future ideas so l
 - Wintergate Stairs
 - Pale Comet Fields
 
-### Verdant Wilds
+### Verdant Wilds ✅ Implemented (full narrative scenes)
 - Briarheart Basin
 - Emberleaf Grove
 - Mossveil Crossing
