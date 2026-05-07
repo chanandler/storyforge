@@ -4984,7 +4984,7 @@ const STORY = (() => {
         onEnter: (state) => {
           state.location = location.id;
           state.flags[`frontier_discovered_${location.id}`] = true;
-          LOCATIONS[location.id].discovered = true;
+          if (LOCATIONS[location.id]) LOCATIONS[location.id].discovered = true;
           if (!state.flags[rewardFlag]) {
             state.flags[rewardFlag] = true;
             state.xp += 6;
@@ -8616,7 +8616,7 @@ const STORY = (() => {
     function discoverNR(state, locationId) {
       state.location = locationId;
       state.flags[`frontier_discovered_${locationId}`] = true;
-      LOCATIONS[locationId].discovered = true;
+      if (LOCATIONS[locationId]) LOCATIONS[locationId].discovered = true;
     }
 
     function firstVisitReward(state, locationId, xp, gold) {
@@ -9118,6 +9118,502 @@ const STORY = (() => {
   }
 
   initializeNorthernReachScenes();
+
+  // ==================== VERDANT WILDS — FULL SCENES ====================
+  // Overrides the generic frontier stubs with rich narrative content for all
+  // 10 Verdant Wilds frontier locations.
+  function initializeVerdantWildsScenes() {
+    const VW_BG = 'linear-gradient(180deg, #285138 0%, #11261a 100%)';
+    const VW_BG_BRIGHT = 'linear-gradient(180deg, #357046 0%, #182d1d 100%)';
+    const CLUSTER_HUB = 'batch003_cluster_verdant_wilds';
+
+    function discoverVW(state, locationId) {
+      state.location = locationId;
+      state.flags[`frontier_discovered_${locationId}`] = true;
+      if (LOCATIONS[locationId]) LOCATIONS[locationId].discovered = true;
+    }
+
+    function firstVisitReward(state, locationId, xp, gold) {
+      const rewardFlag = `frontier_site_secured_${locationId}`;
+      if (!state.flags[rewardFlag]) {
+        state.flags[rewardFlag] = true;
+        state.xp += xp;
+        state.gold += gold;
+      }
+    }
+
+    // ── 1. BRIARHEART BASIN ───────────────────────────────────────────────
+    const BRIARHEART = 'frontier_briarheart_basin';
+    SCENES[`frontier_site_${BRIARHEART}`] = {
+      text: `<p>The Briarheart Basin is a broad hollow shared by two villages — Thornside to the west and Eastmere to the east. A wall of grey-green briars four metres high divides them, grown thick over decades of mutual neglect and old grievances.</p>
+<p>Both village elders accuse the other of cultivating the thorns as a barrier. Caravans that once threaded the basin now avoid it entirely, leaving both settlements isolated and hungry.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🌿 Mediate the pact dispute and help both villages tend the briarfield', next: 'vw_briarheart_mediate' },
+        { text: '🗡️ Cut to the old pact stone at the basin centre and read its terms', next: 'vw_briarheart_pactstone' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, BRIARHEART);
+      }
+    };
+
+    SCENES.vw_briarheart_mediate = {
+      text: `<p>You spend a day shuttling between the two villages, listening to each side in turn. The original dispute is almost quaint — a boundary marker moved a generation ago, a debt never settled. Smaller than the wall of thorns it spawned.</p>
+<p>With both elders in the same room for the first time in years, agreement comes faster than expected. They sign a joint tending compact before dusk. By the next morning, work crews from both sides are pruning back the briar together.</p>
+<p><span class="story-action">Pact dispute resolved. Basin corridor reopened. Both villages join the resistance supply network. +22 XP, +20 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Record the alliance and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, BRIARHEART);
+        state.flags.vw_briarheart_mediated = true;
+        firstVisitReward(state, BRIARHEART, 22, 20);
+      }
+    };
+
+    SCENES.vw_briarheart_pactstone = {
+      text: `<p>The basin centre is choked and close. You work through the thorns with a long blade, following old cart-ruts pressed into the soil beneath the growth. The pact stone is a waist-high block of dark granite, its carved face still legible under a skin of lichen.</p>
+<p>The terms are clear and fair — and both villages have been honouring them in different ways, each thinking the other was in breach. You copy the text and deliver it to both elders simultaneously. The look on their faces when they read the same stone is almost worth the thorn scratches.</p>
+<p><span class="story-action">Pact stone found. Misunderstanding corrected. Basin route partially cleared. +15 XP, +25 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Leave the copy with both villages and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, BRIARHEART);
+        state.flags.vw_briarheart_pact_read = true;
+        firstVisitReward(state, BRIARHEART, 15, 25);
+      }
+    };
+
+    // ── 2. EMBERLEAF GROVE ────────────────────────────────────────────────
+    const EMBERLEAF = 'frontier_emberleaf_grove';
+    SCENES[`frontier_site_${EMBERLEAF}`] = {
+      text: `<p>The Emberleaf Grove is unmistakable from half a league away: its canopy blazes in shades of deep orange and molten red, leaves that look aflame but do not burn. The air carries a dry warmth even in the cool season.</p>
+<p>Resistance alchemists have been seeking this grove for months. Ember sap — the amber resin that flows through these trees — is said to hold fire without consuming its vessel, making it invaluable for long-burning signal lamps and ward-forge fuel.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🔥 Follow the ember trails deeper to find the primary sap wellspring', next: 'vw_emberleaf_wellspring' },
+        { text: '🧪 Harvest ember sap from the outer ring of accessible trees', next: 'vw_emberleaf_harvest' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, EMBERLEAF);
+      }
+    };
+
+    SCENES.vw_emberleaf_wellspring = {
+      text: `<p>The ember trails are literal — thin lines of luminous sap weeping from bark wounds and tracing root-paths along the forest floor. You follow them inward through three increasingly warm rings of trees until the canopy closes overhead like a furnace mouth.</p>
+<p>The wellspring is a split boulder with amber sap welling up from a deep crack, pooling in a natural basin carved smooth by decades of slow overflow. Enough fuel to keep a resistance forge running for a season, and the location is now yours to map.</p>
+<p><span class="story-action">Ember sap wellspring located. Alchemist supply route established. +25 XP, +15 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Mark the location and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, EMBERLEAF);
+        state.flags.vw_emberleaf_wellspring_found = true;
+        firstVisitReward(state, EMBERLEAF, 25, 15);
+      }
+    };
+
+    SCENES.vw_emberleaf_harvest = {
+      text: `<p>The outer trees yield ember sap generously when tapped correctly — a shallow horizontal cut, not too deep, angled to let the resin run free without damaging the cambium. You fill three sealed canisters before the afternoon light shifts.</p>
+<p>The alchemist who receives them turns the first canister over in her hands with reverence. <span class="story-dialogue">"This is a month of work solved in a day,"</span> she says. <span class="story-dialogue">"Come back any time."</span></p>
+<p><span class="story-action">Ember sap harvested. Alchemist workshop resupplied. +15 XP, +30 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Accept the thanks and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, EMBERLEAF);
+        state.flags.vw_emberleaf_sap_harvested = true;
+        firstVisitReward(state, EMBERLEAF, 15, 30);
+      }
+    };
+
+    // ── 3. MOSSVEIL CROSSING ──────────────────────────────────────────────
+    const MOSSVEIL = 'frontier_mossveil_crossing';
+    SCENES[`frontier_site_${MOSSVEIL}`] = {
+      text: `<p>The Mossveil Crossing is a series of old stone bridges threading between rocky outcrops, perpetually cloaked in a fog so dense the boards beneath your feet disappear at knee height. Pilgrims once followed hanging bells to navigate these bridges toward hidden shrines on the far side.</p>
+<p>Three pilgrims set out three weeks ago and haven't returned. The bells still ring faintly from somewhere in the fog, but whether that is reassuring or ominous is hard to say.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🌫️ Use the pilgrim bells as guides and navigate through the fog', next: 'vw_mossveil_navigate' },
+        { text: '🔧 Clear the mossweeds fouling the bridge drainage channels to reduce the fog', next: 'vw_mossveil_clear' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, MOSSVEIL);
+      }
+    };
+
+    SCENES.vw_mossveil_navigate = {
+      text: `<p>You follow the bells by sound alone, moving slowly, one hand always on the rope guide rail. The fog is cold and damp, muffling everything except the rhythmic ring and your own footsteps.</p>
+<p>Halfway across the second bridge you find the pilgrims — sheltering in a carved recess beside a shrine, their lantern long dead. They followed the wrong bell sequence and became turned around. You lead them out by the correct route, and they press a carved shrine token into your hand in thanks. The token carries a blessing used in the old ward-craft.</p>
+<p><span class="story-action">Three pilgrims rescued. Shrine route mapped. Ward-craft token recovered. +20 XP, +18 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Guide the pilgrims to safety and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, MOSSVEIL);
+        state.flags.vw_mossveil_pilgrims_rescued = true;
+        firstVisitReward(state, MOSSVEIL, 20, 18);
+      }
+    };
+
+    SCENES.vw_mossveil_clear = {
+      text: `<p>The mossweeds have grown into the drainage channels cut beneath the bridge decking, blocking the natural airflow that once prevented the fog from pooling. You spend two hours pulling the growth free with a hooked tool improvised from a belt buckle and a walking staff.</p>
+<p>The fog doesn't vanish but it drops by half — enough to see your feet, enough to see the ropes, enough to cross safely. When the pilgrims on the far side finally spot daylight they nearly run.</p>
+<p><span class="story-action">Bridge drainage cleared. Crossing made passable. Pilgrims guided out. +15 XP, +22 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Mark the crossing safe and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, MOSSVEIL);
+        state.flags.vw_mossveil_drainage_cleared = true;
+        firstVisitReward(state, MOSSVEIL, 15, 22);
+      }
+    };
+
+    // ── 4. SUNPETAL MEADOW ────────────────────────────────────────────────
+    const SUNPETAL = 'frontier_sunpetal_meadow';
+    SCENES[`frontier_site_${SUNPETAL}`] = {
+      text: `<p>The Sunpetal Meadow is stunning at first glance — a broad sweep of bright yellow flowers, warm as midday even in early morning. Only when you step onto the grass do you notice the subtle wrongness: patches where the flowers grow in perfect rings, the soil inside each ring soft as fresh snow.</p>
+<p>Sinkholes. Dozens of them, masked by the bloom. Below, according to old survey notes, a catacomb network used for storing Crown-era correspondence runs for half a league.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🕳️ Carefully lower yourself into the largest sinkhole to explore the catacombs', next: 'vw_sunpetal_descend' },
+        { text: '🗺️ Map all sinkhole positions to create a safe transit route', next: 'vw_sunpetal_map' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, SUNPETAL);
+      }
+    };
+
+    SCENES.vw_sunpetal_descend = {
+      text: `<p>You lower yourself on a rope through three metres of loose soil into a chamber that opens up wide and cool beneath the meadow. The catacombs are dry and well-structured — clearly built to last.</p>
+<p>Sealed canisters of correspondence line stone shelves, each labelled with Crown-era routing codes. Most are routine trade records, but one canister is heavier than the rest. Inside: a sealed pouch with three letters marked <em>For the Crown Heir Only</em>. The content describes the shard-hiding protocol used after the Sundering was first feared — written before it happened.</p>
+<p><span class="story-action">Catacomb archive accessed. Pre-Sundering shard protocols recovered. +28 XP, +12 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Seal the catacomb and return to operations with the letters', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, SUNPETAL);
+        state.flags.vw_sunpetal_catacombs_explored = true;
+        firstVisitReward(state, SUNPETAL, 28, 12);
+      }
+    };
+
+    SCENES.vw_sunpetal_map = {
+      text: `<p>You spend the morning walking careful circles around each sinkhole ring, marking positions on a stretched piece of oilskin. Forty-seven sinkholes in total — the map looks like a constellation when complete.</p>
+<p>The pattern is not random. The sinkholes trace the walls and corridors of the catacomb network below, and the largest ones mark chamber intersections. You have inadvertently produced a floor plan of the entire underground complex.</p>
+<p><span class="story-action">Sinkhole map completed. Catacomb floor plan produced. Safe transit route established. +18 XP, +28 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Copy the map for resistance scouts and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, SUNPETAL);
+        state.flags.vw_sunpetal_sinkholes_mapped = true;
+        firstVisitReward(state, SUNPETAL, 18, 28);
+      }
+    };
+
+    // ── 5. THISTLEKEEP RUINS ──────────────────────────────────────────────
+    const THISTLEKEEP = 'frontier_thistlekeep_ruins';
+    SCENES[`frontier_site_${THISTLEKEEP}`] = {
+      text: `<p>The old garrison keep at Thistlekeep has become something between a ruin and a living fortress. Razor-vines have consumed the outer walls so completely that the stone beneath is invisible, and the vines move — slowly, but visibly — whenever anything approaches the gatehouse.</p>
+<p>The garrison abandoned this post decades ago. Someone, or something, has been tending the vines since then. They are too regular, too purposeful, to be wild growth.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '✂️ Cut through the razor-vines to reach the keep\'s inner ward', next: 'vw_thistlekeep_cut' },
+        { text: '🌱 Examine the vine roots to understand who cultivated them', next: 'vw_thistlekeep_examine' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, THISTLEKEEP);
+      }
+    };
+
+    SCENES.vw_thistlekeep_cut = {
+      text: `<p>Progress is slow and painful — every cut vine springs back toward you. You work in a methodical spiral, cutting and retreating, until a path three metres wide stands open to the inner ward.</p>
+<p>The ward is surprisingly intact. A single figure sits at a table in the centre: an old woman in faded ranger colours, surrounded by cultivation records going back thirty years. She has been managing the vines as a deliberate barrier, keeping Malachar's scouts out of the keep's archive cellar.</p>
+<p><span class="story-dialogue">"Took you long enough,"</span> she says without looking up. <span class="story-dialogue">"I was beginning to think the resistance had given up."</span></p>
+<p><span class="story-action">Inner ward breached. Archive cellar accessed. Ranger contact established. +20 XP, +22 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Escort the ranger to safety and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, THISTLEKEEP);
+        state.flags.vw_thistlekeep_ward_cleared = true;
+        firstVisitReward(state, THISTLEKEEP, 20, 22);
+      }
+    };
+
+    SCENES.vw_thistlekeep_examine = {
+      text: `<p>The roots run deeper than expected — and they carry carved markers every metre or so, tiny symbols pressed into the bark with a small tool. It is a record system. Someone is using the root network to store and transmit information.</p>
+<p>Following the root language leads you to a hollow beneath the oldest vine where a sealed message cache is wedged. Inside: dispatches in resistance cipher, including a note from a ranger who has been sheltering in the keep's inner ward for three decades, waiting for contact.</p>
+<p><span class="story-action">Root cipher decoded. Hidden dispatch cache recovered. Ranger contact located. +22 XP, +18 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Retrieve the messages and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, THISTLEKEEP);
+        state.flags.vw_thistlekeep_root_cipher_read = true;
+        firstVisitReward(state, THISTLEKEEP, 22, 18);
+      }
+    };
+
+    // ── 6. ROOTWAKE HOLLOW ────────────────────────────────────────────────
+    const ROOTWAKE = 'frontier_rootwake_hollow';
+    SCENES[`frontier_site_${ROOTWAKE}`] = {
+      text: `<p>The hollow inside the great root network runs like a tunnel, wide enough for a loaded cart, high enough to stand upright. Lantern hooks have been carved into the wood at regular intervals, and fresh wheel-tracks press into the soft floor.</p>
+<p>Whoever runs this route is organised, well-resourced, and operating openly enough that they don't bother to disguise their passage. You have arrived just before dusk — the tracks suggest a delivery is expected tonight.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '👥 Conceal yourself and intercept the next smuggling run', next: 'vw_rootwake_intercept' },
+        { text: '🪵 Follow the root-route now to find where it leads', next: 'vw_rootwake_follow' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, ROOTWAKE);
+      }
+    };
+
+    SCENES.vw_rootwake_intercept = {
+      text: `<p>You wait two hours behind a root buttress before you hear wheels. The cart is loaded with sealed crates marked with a symbol you recognise: a resistance supply faction operating out of the Whispering Wilds.</p>
+<p>The driver is startled but not hostile. <span class="story-dialogue">"We thought the resistance abandoned these routes,"</span> she says, visibly relieved. <span class="story-dialogue">"We've been running supplies blind for months. If you're back, we can finally coordinate properly."</span></p>
+<p><span class="story-action">Supply network contact established. Root-route integrated into resistance logistics. +18 XP, +30 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Integrate the supply route and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, ROOTWAKE);
+        state.flags.vw_rootwake_network_joined = true;
+        firstVisitReward(state, ROOTWAKE, 18, 30);
+      }
+    };
+
+    SCENES.vw_rootwake_follow = {
+      text: `<p>The root-route runs for nearly two leagues before surfacing in a concealed cellar beneath a farmhouse on the far side of the wilds. The farmer — a broad-shouldered woman in her sixties — nearly drops her lantern when you emerge.</p>
+<p>The hollow is the eastern terminus of a five-stop underground supply chain connecting three resistance cells that didn't know each other existed. You have just found the map that links them all.</p>
+<p><span class="story-action">Root-route traced to its terminus. Three resistance cells connected. +22 XP, +25 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Coordinate the three cells and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, ROOTWAKE);
+        state.flags.vw_rootwake_route_mapped = true;
+        firstVisitReward(state, ROOTWAKE, 22, 25);
+      }
+    };
+
+    // ── 7. GREENWARDEN SPIRE ──────────────────────────────────────────────
+    const GREENWARDEN = 'frontier_greenwarden_spire';
+    SCENES[`frontier_site_${GREENWARDEN}`] = {
+      text: `<p>The Greenwarden Spire is a natural stone column rising thirty metres above the canopy, its top platform offering an unbroken view across sixty leagues of forest. Two rival orders both consider it ancestral territory: the Thornwatch, who guard the forest's northern edge, and the Verdant Guard, who patrol the southern approach.</p>
+<p>Both factions have camped at the spire's base with weapons drawn and arguments ready. Neither has climbed to the platform in weeks — too busy watching each other.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🤝 Broker a temporary alliance between the Thornwatch and Verdant Guard', next: 'vw_greenwarden_broker' },
+        { text: '🧗 Scale the spire yourself while the two factions argue below', next: 'vw_greenwarden_climb' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, GREENWARDEN);
+      }
+    };
+
+    SCENES.vw_greenwarden_broker = {
+      text: `<p>The negotiation takes most of the day. Both faction leaders are experienced fighters and experienced arguers — but they are also both genuinely frightened about what Malachar's presence means for the forest they love.</p>
+<p>The turning point comes when you produce the Crown shard and let them both see it. Ancient oaths taken before the Sundering bind both orders to aid any bearer of the Crown's fragments. The argument ends almost immediately.</p>
+<p><span class="story-dialogue">"The Spire is yours to use,"</span> says the Verdant Guard captain. <span class="story-dialogue">"Both of our patrols will support your operations."</span></p>
+<p><span class="story-action">Thornwatch and Verdant Guard allied. Spire observation post secured. +25 XP, +15 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Ascend the spire to survey the region and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, GREENWARDEN);
+        state.flags.vw_greenwarden_factions_allied = true;
+        firstVisitReward(state, GREENWARDEN, 25, 15);
+      }
+    };
+
+    SCENES.vw_greenwarden_climb = {
+      text: `<p>The hand-holds are old and sure. You reach the platform in twenty minutes while the shouting below dwindles to a distant murmur. The view from the top is extraordinary — and alarming.</p>
+<p>You can see a column of smoke rising from a direction that shouldn't have smoke, and movement along three forest roads where resistance supply lines run. Someone is tracking those routes. You record everything and descend with information worth more than any truce.</p>
+<p><span class="story-action">Tactical survey completed. Threat positions identified. Resistance scouts alerted. +20 XP, +20 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Relay the intelligence and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, GREENWARDEN);
+        state.flags.vw_greenwarden_survey_done = true;
+        firstVisitReward(state, GREENWARDEN, 20, 20);
+      }
+    };
+
+    // ── 8. VINEBOUND CAUSEWAY ─────────────────────────────────────────────
+    const VINEBOUND = 'frontier_vinebound_causeway';
+    SCENES[`frontier_site_${VINEBOUND}`] = {
+      text: `<p>The Vinebound Causeway was once a wide stone road, its paving flags still visible in places beneath a mat of vines so thick the surface has become soft underfoot. The vines move — slowly but deliberately — shifting to close off gaps when travellers attempt to pass.</p>
+<p>Two scouts who attempted the causeway last week returned with vine-marks on their arms and the unsettling report that the plants seemed to be directing them, not attacking them — herding them away from something deeper in.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🌿 Attempt to commune with the sentient vines and negotiate right of passage', next: 'vw_vinebound_commune' },
+        { text: '🔥 Use fire to push back the vines and force the causeway open', next: 'vw_vinebound_fire' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, VINEBOUND);
+      }
+    };
+
+    SCENES.vw_vinebound_commune = {
+      text: `<p>You sit at the causeway's edge and hold your hand flat on the nearest vine for a long moment. The movement slows, then stops. Something in the plant's slow consciousness registers your patience as different from the hurrying boots it has been deflecting.</p>
+<p>Understanding passes without words: the vines are guarding the causeway's far end, where a sealed vault beneath the old road holds something the plants were instructed to protect before the Sundering's full chaos set in. They will let you pass — but you must carry nothing of Malachar's taint.</p>
+<p>The vault holds a crate of ward-crystal rods, still active after decades of vine-care.</p>
+<p><span class="story-action">Vine-communion established. Causeway transit right granted. Vault of ward-crystals recovered. +25 XP, +20 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Carry the ward-crystals to the resistance and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, VINEBOUND);
+        state.flags.vw_vinebound_communed = true;
+        firstVisitReward(state, VINEBOUND, 25, 20);
+      }
+    };
+
+    SCENES.vw_vinebound_fire = {
+      text: `<p>You light a broad fire line across the causeway entrance and push forward behind a wall of smoke and controlled flame. The vines recoil from the heat, retreating fast enough to open a clear path twenty metres long before you need to relight.</p>
+<p>The causeway is navigable, but at a cost: the vine network you've damaged will take a season to regrow, and whatever it was protecting at the far end is now exposed. You find a sealed vault whose contents — ward-crystal rods — are intact, but the surrounding vine defence is gone.</p>
+<p><span class="story-action">Causeway forced open. Ward-crystal vault accessed. Vine defence disrupted. +15 XP, +28 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Secure the ward-crystals and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, VINEBOUND);
+        state.flags.vw_vinebound_burned = true;
+        firstVisitReward(state, VINEBOUND, 15, 28);
+      }
+    };
+
+    // ── 9. DEWGLASS ORCHARD ───────────────────────────────────────────────
+    const DEWGLASS = 'frontier_dewglass_orchard';
+    SCENES[`frontier_site_${DEWGLASS}`] = {
+      text: `<p>The Dewglass Orchard is eerily beautiful: trees hung with translucent crystal fruit that catch the light and scatter it in moving patterns across the ground. When you press your ear to the nearest fruit, you hear voices — fragments of conversations, arguments, a child's laughter, a battle order.</p>
+<p>These fruits store memory echoes. Everything that happened within earshot of this orchard has been recorded in the crystalline growth over generations.</p>`,
+      background: VW_BG,
+      choices: [
+        {
+          text: '💎 Attune your Crown shard to the orchard\'s memory-crystal lattice',
+          next: 'vw_dewglass_attune',
+          condition: (state) => state.inventory.some(id => id.startsWith('shard_')),
+          requirementText: 'Requires a Crown Shard'
+        },
+        { text: '🍏 Select a crystal fruit and experience a specific stored memory', next: 'vw_dewglass_listen' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, DEWGLASS);
+      }
+    };
+
+    SCENES.vw_dewglass_attune = {
+      text: `<p>You hold your Crown shard against the largest crystal fruit and let the resonance build. The orchard responds to the shard's frequency like an instrument recognising its own note — every fruit chimes simultaneously, a wave of sound moving through the trees.</p>
+<p>The combined memory-lattice surfaces a specific scene: a figure in court robes placing three of the Crown's five shards in separate trusted hands after a meeting in this very orchard. Their faces are unclear, but the directions they travel afterward are not. One went north. One went toward water. One stayed close to the capital.</p>
+<p><span class="story-action">Memory-lattice attuned. Shard dispersal routes revealed. +28 XP, +10 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Record the memory and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, DEWGLASS);
+        state.flags.vw_dewglass_lattice_attuned = true;
+        firstVisitReward(state, DEWGLASS, 28, 10);
+      }
+    };
+
+    SCENES.vw_dewglass_listen = {
+      text: `<p>You select a fruit that feels warm — a sign the memory inside is recent. The echo that fills your hearing is from four years ago: a resistance scout briefing her cell leader on Malachar's troop movements through this region.</p>
+<p>The intelligence is old but valuable for understanding patterns. More importantly, the scout mentions a cache of resistance maps stored in a hollow tree a quarter-league to the east — maps of routes Malachar doesn't know about.</p>
+<p><span class="story-action">Memory echo accessed. Hidden map cache located. +18 XP, +25 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Retrieve the cached maps and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, DEWGLASS);
+        state.flags.vw_dewglass_memory_heard = true;
+        firstVisitReward(state, DEWGLASS, 18, 25);
+      }
+    };
+
+    // ── 10. HOLLOWFERN DEN ────────────────────────────────────────────────
+    const HOLLOWFERN = 'frontier_hollowfern_den';
+    SCENES[`frontier_site_${HOLLOWFERN}`] = {
+      text: `<p>The great ferns at the hollow's heart are the size of small trees, their arching fronds weaving a living canopy ten metres above the soft floor. Signs of recent gathering are everywhere: cold fire pits, food remnants wrapped in bark, carved totems marking the den's four compass points.</p>
+<p>The wildkin who gather here are the nomadic clans of the Verdant Wilds — hunters and spirit-talkers who have avoided Malachar's reach by staying mobile. They would know the wilds better than any map.</p>`,
+      background: VW_BG,
+      choices: [
+        { text: '🦌 Wait at the den edge for the wildkin to return and seek an audience', next: 'vw_hollowfern_audience' },
+        { text: '🔍 Search the den carefully for information while the wildkin are away', next: 'vw_hollowfern_search' },
+        { text: '← Return to Verdant Wilds operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, HOLLOWFERN);
+      }
+    };
+
+    SCENES.vw_hollowfern_audience = {
+      text: `<p>You sit cross-legged at the den's edge with your weapons sheathed and wait. Two hours pass. Then a pair of wildkin hunters emerge from the fern canopy, bows low but ready.</p>
+<p>Communication is slow — their common is fragmentary and your knowledge of spirit-sign is nonexistent — but the Crown shard bridges the gap. They have seen its light in their dreams. Their spirit-talker, they say, has been expecting someone carrying it for months.</p>
+<p>By nightfall you have an agreement: the wildkin clans will act as scouts and guides through the Verdant Wilds in exchange for protection during their seasonal gatherings.</p>
+<p><span class="story-action">Wildkin clans allied. Verdant Wilds scout network established. +25 XP, +18 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Seal the pact with the wildkin and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, HOLLOWFERN);
+        state.flags.vw_hollowfern_wildkin_allied = true;
+        firstVisitReward(state, HOLLOWFERN, 25, 18);
+      }
+    };
+
+    SCENES.vw_hollowfern_search = {
+      text: `<p>The den is respectfully ordered. You move through it without disturbing the totems or the fire arrangements. In the crook of the largest fern root you find a spirit-cache: a sealed bundle of bark-cloth containing route-marks, seasonal patrol paths, and a rough map of every wildkin den in the Verdant Wilds.</p>
+<p>You copy what you can and leave the original untouched. When you step back to the edge, a single wildkin hunter is sitting exactly where you sat, watching you with calm amber eyes. They saw everything.</p>
+<p><span class="story-dialogue">"You could have taken it,"</span> they say carefully. <span class="story-dialogue">"You did not. Come back when you need a guide."</span></p>
+<p><span class="story-action">Den information copied. Wildkin route network documented. Trust established. +20 XP, +22 Gold.</span></p>`,
+      background: VW_BG_BRIGHT,
+      choices: [
+        { text: 'Accept the offer and return to operations', next: CLUSTER_HUB }
+      ],
+      onEnter: (state) => {
+        discoverVW(state, HOLLOWFERN);
+        state.flags.vw_hollowfern_routes_copied = true;
+        firstVisitReward(state, HOLLOWFERN, 20, 22);
+      }
+    };
+  }
+
+  initializeVerdantWildsScenes();
 
 
   return { ITEMS, ENEMIES, LOCATIONS, SCENES, FRONTIER_CLUSTERS, FRONTIER_LOCATIONS };
