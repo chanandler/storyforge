@@ -8843,10 +8843,12 @@ const STORY = (() => {
         { text: 'Leave the garrison in good hands and return to operations', next: CLUSTER_HUB }
       ],
       onEnter: (state) => {
+        const rimewatchClearReward = `frontier_site_secured_${RIMEWATCH}`;
+        const isFirstClearVisit = !state.flags[rimewatchClearReward];
         discoverNR(state, RIMEWATCH);
         state.flags.nr_rimewatch_outpost_established = true;
         firstVisitReward(state, RIMEWATCH, 22, 15);
-        if (!state.inventory.includes('health_potion')) {
+        if (isFirstClearVisit) {
           state.inventory.push('health_potion');
         }
       }
@@ -8861,10 +8863,14 @@ const STORY = (() => {
         { text: 'Take what you can carry and return to operations', next: CLUSTER_HUB }
       ],
       onEnter: (state) => {
+        const rimewatchSupplyReward = `frontier_site_secured_${RIMEWATCH}`;
+        const isFirstSupplyVisit = !state.flags[rimewatchSupplyReward];
         discoverNR(state, RIMEWATCH);
         state.flags.nr_rimewatch_supplies_secured = true;
         firstVisitReward(state, RIMEWATCH, 15, 25);
-        state.inventory.push('health_potion');
+        if (isFirstSupplyVisit) {
+          state.inventory.push('health_potion');
+        }
       }
     };
 
@@ -8893,10 +8899,14 @@ const STORY = (() => {
         { text: 'Carry the journal back to camp and return to operations', next: CLUSTER_HUB }
       ],
       onEnter: (state) => {
+        const silverFullReward = `frontier_site_secured_${SILVERPINE}`;
+        const isFirstFullVisit = !state.flags[silverFullReward];
         discoverNR(state, SILVERPINE);
         state.flags.nr_silverpine_network_restored = true;
         firstVisitReward(state, SILVERPINE, 22, 30);
-        state.inventory.push('mana_potion');
+        if (isFirstFullVisit) {
+          state.inventory.push('mana_potion');
+        }
       }
     };
 
@@ -8909,10 +8919,14 @@ const STORY = (() => {
         { text: 'Take the cache and return to operations', next: CLUSTER_HUB }
       ],
       onEnter: (state) => {
+        const silverQuickReward = `frontier_site_secured_${SILVERPINE}`;
+        const isFirstQuickVisit = !state.flags[silverQuickReward];
         discoverNR(state, SILVERPINE);
         state.flags.nr_silverpine_cache_recovered = true;
         firstVisitReward(state, SILVERPINE, 14, 20);
-        state.inventory.push('mana_potion');
+        if (isFirstQuickVisit) {
+          state.inventory.push('mana_potion');
+        }
       }
     };
 
